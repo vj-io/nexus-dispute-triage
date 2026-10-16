@@ -2,6 +2,8 @@
 
 NEXUS helps an e-commerce support agent answer "I was charged twice". It takes a complaint and the authorized payment records for one selected order, and returns a cited triage result, a customer-reply draft, and either a refund recommendation or a human-review case. Built for the lablab.ai AMD Developer Hackathon ACT III, Track 3 (Reinvent Commerce). All data is synthetic and the refund policy is fictional.
 
+![NEXUS case screen](docs/cover.png)
+
 **Live demo:** https://nexus-dispute-triage.vercel.app (protected by an access token; the token is in the submission notes and is not in this repository)
 
 ## The problem and what the AMD model does

@@ -49,6 +49,14 @@ Not run by this worker, so not verified here:
 - Hosted demo: per-instance rate limits and a single shared access token; the operator ID is an audit label only.
 - Google partner note rests on the model being Gemma-4-31B-IT; PRD section 3 originally said the Google prize was not pursued. Check the portal's eligibility wording before ticking it.
 
+## Submission assets (2026-10-16)
+
+- Video: `brag-output/nexus-demo.mp4` (local, git-ignored; 2:45, 1920x1080, 72 MB, -16 LUFS). Live AMD waits are sped up and labelled on screen; the Insights chapter is labelled RECORDED REPLAY. Upload it (YouTube unlisted or Drive) and paste the link in the portal.
+- Cover image: `docs/cover.png` (1920x1080, case screen with truthful LIVE AMD badge).
+- Slides: `docs/slides/NEXUS-pitch.pdf` (6 pages).
+- Share copy: `docs/share-copy.txt`.
+- Hosted Insights: run `demo-all-recorded` (24 authored cases, RECORDED replay, zero AMD calls) loaded into the Neon store; 11 pending reviews for judges to complete.
+
 ## Next steps
 
 1. Record the video (PRD section 15, seven beats, about 150 s within a three-minute edit): `LIVE AMD` badge visible, policy-skipped cases shown as `SKIPPED_POLICY`, any replayed segment labelled `RECORDED`. Confirm the portal's format and duration limits first.
