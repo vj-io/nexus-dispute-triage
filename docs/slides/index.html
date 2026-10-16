@@ -75,7 +75,10 @@ svg.ink path, svg.ink line, svg.ink polyline, svg.ink circle, svg.ink rect { str
 .s1 .chips .arr { width: 96px; height: 40px; }
 .s1 .chip.policy { font: 800 44px/1 var(--disp); letter-spacing: -.02em; }
 .s1 .stamp { position: absolute; right: 64px; top: 744px; width: 580px; padding: 26px 34px 30px; transform: rotate(-3deg); font: 800 56px/1.04 var(--disp); letter-spacing: -.03em; }
-.s1 .doodle { position: absolute; right: 90px; top: 392px; width: 540px; height: 338px; }
+.s1 .doodle { position: absolute; right: 110px; top: 412px; width: 500px; height: 313px; }
+.s1 .team { position: absolute; right: 80px; top: 128px; width: 390px; padding: 20px 28px 24px; transform: rotate(2deg); }
+.s1 .team h3 { font: 800 46px/1 var(--disp); letter-spacing: -.03em; margin-bottom: 12px; }
+.s1 .team ul { list-style: none; margin: 0; padding: 0; font: 400 36px/1.16 var(--hand); }
 
 /* =================== slide 2 =================== */
 .s2 .h2 { position: absolute; left: 80px; top: 128px; width: 960px; }
@@ -151,9 +154,13 @@ svg.ink path, svg.ink line, svg.ink polyline, svg.ink circle, svg.ink rect { str
 .s6 li.go::before { background: var(--lime); }
 .s6 li small { display: block; font: 400 32px/1.1 var(--hand); margin-top: 6px; }
 .s6 li b { font: 700 40px/1.1 var(--disp); letter-spacing: -.02em; }
-.s6 .links { position: absolute; left: 80px; right: 80px; top: 868px; height: 156px; padding: 18px 36px 20px; display: flex; flex-direction: column; justify-content: center; gap: 12px; }
-.s6 .links div { font: 700 38px/1.1 var(--mono); }
-.s6 .links span { font: 400 40px/1.1 var(--hand); display: inline-block; width: 190px; }
+.s6 .links { position: absolute; left: 80px; right: 80px; top: 868px; height: 156px; padding: 18px 30px 20px 36px; display: flex; align-items: center; justify-content: space-between; }
+.s6 .links .ln { display: flex; flex-direction: column; justify-content: center; gap: 12px; }
+.s6 .links .ln div { font: 700 38px/1.1 var(--mono); }
+.s6 .links .ln span { font: 400 40px/1.1 var(--hand); display: inline-block; width: 190px; }
+.s6 .links .credit { border-left: 3.5px dashed var(--ink); padding: 2px 0 2px 34px; white-space: nowrap; }
+.s6 .links .credit b { display: block; font: 800 40px/1 var(--disp); letter-spacing: -.03em; margin-bottom: 6px; }
+.s6 .links .credit p { font: 400 32px/1.1 var(--hand); }
 </style>
 </head>
 <body>
@@ -187,6 +194,9 @@ svg.ink path, svg.ink line, svg.ink polyline, svg.ink circle, svg.ink rect { str
     <circle cx="322" cy="102" r="4" fill="#0a0a0a" stroke-width="5"/>
   </svg>
   <div class="box stamp f-pink"><span class="tape t-l f-lemon"></span>A wrong answer costs money twice.</div>
+  <div class="box team f-lemon"><span class="tape f-sky" style="left:120px;top:-26px;transform:rotate(-3deg)"></span><h3>Team Takla</h3>
+    <ul><li>Vaibhav Jangid</li><li>Garv Bansal</li><li>Abishek Guru</li><li>Pachipulusu Poojit</li></ul>
+  </div>
 </section>
 
 <!-- ============================================================ 2 USER + PRODUCT -->
@@ -321,7 +331,7 @@ svg.ink path, svg.ink line, svg.ink polyline, svg.ink circle, svg.ink rect { str
       <li class="go">Evolus and partner integrations<small>not claimed in this submission</small></li>
     </ul>
   </div>
-  <div class="box links f-lime"><div><span>Live demo</span>https://nexus-dispute-triage.vercel.app</div><div><span>Code</span>github.com/vj-io/nexus-dispute-triage</div></div>
+  <div class="box links f-lime"><div class="ln"><div><span>Live demo</span>https://nexus-dispute-triage.vercel.app</div><div><span>Code</span>github.com/vj-io/nexus-dispute-triage</div></div><div class="credit"><b>Team Takla</b><p>Vaibhav Jangid, Garv Bansal,<br>Abishek Guru, Pachipulusu Poojit</p></div></div>
 </section>
 
 </div>
