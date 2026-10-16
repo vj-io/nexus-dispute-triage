@@ -11,3 +11,6 @@ __pycache__/
 .vercel/
 .DS_Store
 evidence/tmp/
+.agents/
+.claude/
+skills-lock.json
