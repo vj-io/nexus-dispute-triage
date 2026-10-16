@@ -10,6 +10,7 @@ import sqlite3
 import threading
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
+from urllib.parse import urlsplit
 
 import pytest
 
@@ -18,6 +19,9 @@ from models import canonical_hash
 from store import Store
 
 PG_URL = os.environ.get("TEST_DATABASE_URL")
+# These tests DROP the NEXUS tables, so refuse any database whose name does not say "test".
+if PG_URL and "test" not in urlsplit(PG_URL).path.lower():
+    raise RuntimeError("TEST_DATABASE_URL must name a throwaway database containing 'test'")
 BACKENDS = ["sqlite", pytest.param("postgres", marks=pytest.mark.skipif(
     not PG_URL, reason="TEST_DATABASE_URL not set"))]
 
