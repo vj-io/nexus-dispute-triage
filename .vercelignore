@@ -1,0 +1,14 @@
+.venv
+.env
+.env.*
+.agents
+.claude
+skills-lock.json
+*.db
+*.db-wal
+*.db-shm
+tests
+docs
+evidence
+__pycache__
+.pytest_cache
