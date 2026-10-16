@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="description" content="NEXUS triages duplicate-charge complaints: deterministic policy decides, an AMD-hosted model interprets, a person reviews the rest. All data is synthetic.">
+<title>NEXUS - duplicate-charge triage</title>
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&amp;family=JetBrains+Mono:wght@400;700&amp;family=Patrick+Hand&amp;display=swap">
+<link rel="stylesheet" href="/static/styles.css">
+<script src="/static/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<!-- shared SVG filters: the ink "boil" (turbulence seed is stepped at ~10 fps from app.js) -->
+<svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <filter id="boil" x="-2%" y="-4%" width="104%" height="108%">
+    <feTurbulence id="turb" type="fractalNoise" baseFrequency="0.028" numOctaves="2" seed="1"/>
+    <feDisplacementMap in="SourceGraphic" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <filter id="boil-thin" x="-8%" y="-60%" width="116%" height="220%">
+    <feTurbulence id="turb2" type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="1"/>
+    <feDisplacementMap in="SourceGraphic" scale="2.4" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<div id="live" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+
+<header class="site-header wrap">
+  <div class="brand">
+    <h1 class="wordmark" id="wordmark"><span class="wm-text">NEXUS</span></h1>
+    <p class="tagline">Duplicate-charge complaint triage</p>
+  </div>
+  <div class="badges" role="group" aria-label="Run provenance">
+    <div class="badge" id="badge-run" data-kind="idle">
+      <span class="badge-k">Run mode</span>
+      <strong class="badge-v">connecting...</strong>
+    </div>
+    <div class="badge" id="badge-inf" data-kind="idle">
+      <span class="badge-k">Inference</span>
+      <strong class="badge-v">connecting...</strong>
+    </div>
+  </div>
+</header>
+
+<nav id="tabs-nav" class="wrap tabs" aria-label="Sections" hidden>
+  <div role="tablist" aria-label="NEXUS sections">
+    <button type="button" role="tab" id="tab-case" aria-controls="panel-case" aria-selected="true">Case</button>
+    <button type="button" role="tab" id="tab-reviews" aria-controls="panel-reviews" aria-selected="false" tabindex="-1">Review queue <span id="rv-count"></span></button>
+    <button type="button" role="tab" id="tab-insights" aria-controls="panel-insights" aria-selected="false" tabindex="-1">Insights</button>
+    <button type="button" role="tab" id="tab-policy" aria-controls="panel-policy" aria-selected="false" tabindex="-1">Policy</button>
+  </div>
+</nav>
+
+<main id="main" class="wrap" tabindex="-1">
+
+  <!-- access gate -->
+  <section id="gate" hidden aria-labelledby="h-gate">
+    <div class="card gate-card">
+      <h2 id="h-gate" class="card-title">Access token needed</h2>
+      <p class="gate-copy">This demo is protected. Paste the access token you were given. It is kept in this browser tab only and sent as a bearer token with each request.</p>
+      <form id="gate-form" class="gate-form" novalidate>
+        <label for="gate-token">Access token</label>
+        <input id="gate-token" type="password" autocomplete="off" spellcheck="false" autocapitalize="off" required>
+        <div class="actions">
+          <button type="submit" class="btn primary">Unlock</button>
+          <p id="gate-msg" class="msg" role="alert"></p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <div id="fatal" class="msg error" role="alert" hidden></div>
+
+  <div id="app" hidden>
+
+    <!-- ============================== CASE ============================== -->
+    <section id="panel-case" role="tabpanel" aria-labelledby="tab-case">
+      <section class="card pop-in" aria-labelledby="h-new">
+        <h2 id="h-new" class="card-title">New complaint</h2>
+        <form id="case-form" class="form-grid" novalidate>
+          <div class="field full">
+            <label for="scenario">Try a scenario</label>
+            <select id="scenario"><option value="">Pick a scenario to fill the form...</option></select>
+            <p class="hint">Scenarios fill the customer, order and complaint. You can edit anything afterwards.</p>
+          </div>
+          <div class="field">
+            <label for="customer">Customer</label>
+            <select id="customer" required><option value="">Choose a customer...</option></select>
+          </div>
+          <div class="field">
+            <label for="order">Disputed order</label>
+            <select id="order" required disabled><option value="">Choose a customer first...</option></select>
+          </div>
+          <fieldset class="field full" id="related-set">
+            <legend>Related orders <span class="opt">(optional, up to 5. Cited for context, never added to the disputed order)</span></legend>
+            <div id="related-list" class="checks"><p class="hint">Choose a disputed order first.</p></div>
+          </fieldset>
+          <div class="field full">
+            <label for="complaint">Customer complaint</label>
+            <textarea id="complaint" rows="5" maxlength="2000" required aria-describedby="count" placeholder="e.g. I was charged twice for my order..."></textarea>
+            <p class="counter" id="count">0 / 2000</p>
+          </div>
+          <div class="actions">
+            <button type="submit" class="btn primary" id="submit">Triage this complaint</button>
+            <p id="form-msg" class="msg" role="alert"></p>
+          </div>
+        </form>
+      </section>
+
+      <section id="pipeline-card" class="card" hidden aria-labelledby="h-pipe">
+        <h2 id="h-pipe" class="card-title">Pipeline</h2>
+        <p id="case-banner" class="case-banner"></p>
+        <ol id="pipe" class="pipe"></ol>
+      </section>
+
+      <div id="result"></div>
+    </section>
+
+    <!-- ============================== REVIEW QUEUE ============================== -->
+    <section id="panel-reviews" role="tabpanel" aria-labelledby="tab-reviews" hidden>
+      <h2 class="sec-title">Review queue</h2>
+      <p class="note-hand"><span class="hl">Recording a decision never executes a payment.</span></p>
+      <div class="toolbar">
+        <button type="button" class="btn" id="rv-refresh">Refresh queue</button>
+        <span id="rv-status" class="hint"></span>
+      </div>
+      <div class="split">
+        <section class="card" aria-labelledby="h-rvl">
+          <h3 id="h-rvl" class="card-title">Awaiting an operator</h3>
+          <ul id="rv-list" class="rv-list"></ul>
+        </section>
+        <section id="rv-detail" class="rv-detail" tabindex="-1" aria-label="Review detail">
+          <p class="hint">Open a review to see its evidence and record a decision.</p>
+        </section>
+      </div>
+    </section>
+
+    <!-- ============================== INSIGHTS ============================== -->
+    <section id="panel-insights" role="tabpanel" aria-labelledby="tab-insights" hidden>
+      <h2 class="sec-title">Insights</h2>
+      <p class="insight-label"><span class="hl">Synthetic demo cases — not customer prevalence.</span></p>
+      <div class="toolbar">
+        <label for="run-select">Demo run</label>
+        <select id="run-select" class="inline-select"></select>
+        <span id="in-status" class="hint"></span>
+      </div>
+      <div id="insights"></div>
+    </section>
+
+    <!-- ============================== POLICY ============================== -->
+    <section id="panel-policy" role="tabpanel" aria-labelledby="tab-policy" hidden>
+      <h2 class="sec-title">Policy</h2>
+      <div id="policy"></div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-footer wrap">
+  <p>All data is synthetic. No payment, email or customer action is ever executed.</p>
+</footer>
+</body>
+</html>
