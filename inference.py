@@ -46,6 +46,7 @@ class InferenceResponse(BaseModel):
     endpoint_host: str | None = None
     request_timestamp: str
     source_metadata: dict | None = None   # RECORDED only: the original live call's metadata
+    cost_usd: float | None = None         # provider-reported usage.cost; None = not reported
 
 
 class TransientError(Exception):
@@ -288,13 +289,21 @@ async def _send(method: str, path: str, body: dict | None = None, *, need_model:
     return r, latency_ms
 
 
+def _cost(v) -> float | None:
+    return float(v) if isinstance(v, (int, float)) and not isinstance(v, bool) and math.isfinite(v) and v >= 0 else None
+
+
 def _tokens(v) -> int | None:
     return v if isinstance(v, int) and not isinstance(v, bool) and v >= 0 else None
 
 
 async def _live(req: InferenceRequest) -> InferenceResponse:
-    body = {"model": _env("AMD_MODEL"), "messages": req.messages,
-            "max_tokens": req.max_tokens, "temperature": 0}
+    body = {"model": _env("AMD_MODEL"), "messages": req.messages, "temperature": 0}
+    # Token Factory's Gemma-4-31B-IT rejects every max_tokens value (its gateway reports a null
+    # output limit), so AMD_SEND_MAX_TOKENS=0 omits it; the timeout, the response-size check in
+    # validation and the conservative budget reservation still bound the call.
+    if _env("AMD_SEND_MAX_TOKENS") != "0":
+        body["max_tokens"] = req.max_tokens
     if _env("AMD_JSON_MODE") != "0":
         body["response_format"] = {"type": "json_object"}
     if _env("AMD_REASONING_EFFORT"):
@@ -316,7 +325,7 @@ async def _live(req: InferenceRequest) -> InferenceResponse:
         content=content, model_id=body["model"], mode=RunMode.LIVE, latency_ms=latency_ms,
         input_tokens=_tokens(usage.get("prompt_tokens")), output_tokens=_tokens(usage.get("completion_tokens")),
         provider_request_id=rid[:200] if rid else None, endpoint_host=_host(_env("AMD_BASE_URL")),
-        request_timestamp=ts)
+        request_timestamp=ts, cost_usd=_cost(usage.get("cost")))
 
 
 async def list_models() -> list[str]:
@@ -429,6 +438,7 @@ async def _smoke() -> int:
     print(f"model id: {resp.model_id}\nlatency ms: {resp.latency_ms}\n"
           f"usage: input_tokens={na(resp.input_tokens)} output_tokens={na(resp.output_tokens)}\n"
           f"provider request id: {na(resp.provider_request_id)}\nendpoint host: {resp.endpoint_host}\n"
+          f"cost usd: {na(resp.cost_usd)}\n"
           f"content: {resp.content[:500]!r}")
     return 0
 

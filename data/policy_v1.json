@@ -1,0 +1,82 @@
+{
+  "version": "v1",
+  "name": "Fictional NEXUS refund policy",
+  "supported_currencies": ["USD", "EUR", "GBP", "INR"],
+  "currency_exponent": {"USD": 2, "EUR": 2, "GBP": 2, "INR": 2, "JPY": 0},
+  "thresholds_minor": {"USD": 20000, "EUR": 20000, "GBP": 17500, "INR": 1500000},
+  "auth_expiry_days": 7,
+  "refund_settlement_days": 7,
+  "max_complaint_chars": 2000,
+  "rules": [
+    {
+      "id": "R1",
+      "title": "Restricted accounts",
+      "text": "If the customer's account is restricted, no automatic refund recommendation is made. The case goes to a human reviewer."
+    },
+    {
+      "id": "R2",
+      "title": "Supported currencies",
+      "text": "Automatic recommendations are made only for orders in USD, EUR, GBP or INR. An order in any other currency goes to a human reviewer."
+    },
+    {
+      "id": "R3",
+      "title": "Currency consistency",
+      "text": "The order, its payments and its refunds must all use the same currency. Any mismatch goes to a human reviewer."
+    },
+    {
+      "id": "R4",
+      "title": "Complete and consistent history",
+      "text": "The order must be marked as having a complete payment history, and every record must be complete and consistent: required fields present, unique IDs, positive amounts, links to the right customer and order, and refunds no larger than the payment they reverse. Missing records are never treated as proof that nothing was charged twice. Anything else goes to a human reviewer."
+    },
+    {
+      "id": "R5",
+      "title": "Open chargeback",
+      "text": "If any payment on the order has an open chargeback, the case goes to a human reviewer and no refund is recommended."
+    },
+    {
+      "id": "R6",
+      "title": "Returns and adjustments",
+      "text": "Orders that were returned, cancelled or otherwise adjusted go to a human reviewer. So do orders with a refund whose reason is anything other than duplicate_correction (item_return, other or unknown)."
+    },
+    {
+      "id": "R7",
+      "title": "Pending refunds",
+      "text": "If the order has any pending refund, whatever its amount, no new automatic recommendation is made and the case goes to a human reviewer. Pending money is never counted as already refunded."
+    },
+    {
+      "id": "R8",
+      "title": "Authorizations are holds",
+      "text": "An authorization is a temporary hold, not a charge, and is never counted as a capture. A hold is expected to drop off by its recorded expiry date, which is 7 days after it was authorized; this is an expectation, not a guarantee. An authorization still active after its recorded expiry goes to a human reviewer."
+    },
+    {
+      "id": "R9",
+      "title": "Over-capture arithmetic",
+      "text": "Over-capture is the amount captured above the order total. Only captured payments count, never authorizations or voided payments. Captures that add up to exactly the order total are not an over-capture. An over-capture is a possible duplicate charge, not proof of its cause."
+    },
+    {
+      "id": "R10",
+      "title": "Duplicate corrections",
+      "text": "Only succeeded refunds with the reason duplicate_correction reduce the over-capture. Pending and failed refunds are never subtracted. The amount still owed is the over-capture minus those corrections, and never less than zero."
+    },
+    {
+      "id": "R11",
+      "title": "Amount threshold",
+      "text": "A refund is recommended automatically only when the amount still owed is within the limit for its currency: USD 200.00, EUR 200.00, GBP 175.00 or INR 15,000.00. A larger amount goes to a human reviewer."
+    },
+    {
+      "id": "R12",
+      "title": "Related orders",
+      "text": "Related orders may be cited for comparison. Their balances are never combined with the disputed order's balance."
+    },
+    {
+      "id": "R13",
+      "title": "Complaint must match the order",
+      "text": "The complaint must clearly match the selected order. If the date, card last four digits or amount the customer gives do not match that order, ask the customer for clarification instead of recommending anything."
+    },
+    {
+      "id": "R14",
+      "title": "Settlement timing",
+      "text": "Refunds under this policy are usually expected to settle within 7 business days, and the customer's bank may take longer. Timing is an expectation, never a guarantee."
+    }
+  ]
+}
