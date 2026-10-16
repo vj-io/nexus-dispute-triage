@@ -1,0 +1,271 @@
+{
+  "run_id": "eval-dev-live-202610161119",
+  "label": "tuning",
+  "run_mode": "LIVE",
+  "generated_at": "2026-10-16T11:22:07Z",
+  "model_id": "Gemma-4-31B-IT",
+  "prompt_version": "nexus-investigator-v1",
+  "endpoint_hosts": [
+    "developer.amd.com.cn"
+  ],
+  "families": {
+    "1": [
+      {
+        "case_key": "s01-dev",
+        "split": "dev",
+        "state": "TRIAGED",
+        "disposition": "NO_REFUND_RECOMMENDED",
+        "inference_status": "USED",
+        "model_calls": 1,
+        "calls": [
+          {
+            "id": "call_47e12ad7bb4e4e1ca4f2ae07c6c976ec",
+            "attempt_number": 1,
+            "mode": "LIVE",
+            "model_id": "Gemma-4-31B-IT",
+            "prompt_version": "nexus-investigator-v1",
+            "endpoint_host": "developer.amd.com.cn",
+            "request_timestamp": "2026-10-16T11:19:31.657Z",
+            "provider_request_id": "0fe8a8564e4147fea353a6b8f4eded56",
+            "input_tokens": "2849",
+            "output_tokens": "230",
+            "latency_ms": 13334,
+            "status": "SUCCEEDED"
+          }
+        ]
+      }
+    ],
+    "2": [
+      {
+        "case_key": "s02-dev",
+        "split": "dev",
+        "state": "TRIAGED",
+        "disposition": "REFUND_RECOMMENDED",
+        "inference_status": "USED",
+        "model_calls": 1,
+        "calls": [
+          {
+            "id": "call_f879453d2ae4448eab8ffab935126c0a",
+            "attempt_number": 1,
+            "mode": "LIVE",
+            "model_id": "Gemma-4-31B-IT",
+            "prompt_version": "nexus-investigator-v1",
+            "endpoint_host": "developer.amd.com.cn",
+            "request_timestamp": "2026-10-16T11:19:48.139Z",
+            "provider_request_id": "5b0714eed78146aca319a8821996758d",
+            "input_tokens": "2784",
+            "output_tokens": "237",
+            "latency_ms": 10451,
+            "status": "SUCCEEDED"
+          }
+        ]
+      }
+    ],
+    "3": [
+      {
+        "case_key": "s03-dev",
+        "split": "dev",
+        "state": "TRIAGED",
+        "disposition": "NO_REFUND_RECOMMENDED",
+        "inference_status": "USED",
+        "model_calls": 1,
+        "calls": [
+          {
+            "id": "call_52134859920f4efe943d0bfd95a73d1c",
+            "attempt_number": 1,
+            "mode": "LIVE",
+            "model_id": "Gemma-4-31B-IT",
+            "prompt_version": "nexus-investigator-v1",
+            "endpoint_host": "developer.amd.com.cn",
+            "request_timestamp": "2026-10-16T11:20:01.747Z",
+            "provider_request_id": "03365511975e4e70813f3e8cc327e2f0",
+            "input_tokens": "2775",
+            "output_tokens": "228",
+            "latency_ms": 8695,
+            "status": "SUCCEEDED"
+          }
+        ]
+      }
+    ],
+    "4": [
+      {
+        "case_key": "s04-dev",
+        "split": "dev",
+        "state": "TRIAGED",
+        "disposition": "NO_REFUND_RECOMMENDED",
+        "inference_status": "USED",
+        "model_calls": 1,
+        "calls": [
+          {
+            "id": "call_11a5f3f0ddff4ebfa7aba20222800786",
+            "attempt_number": 1,
+            "mode": "LIVE",
+            "model_id": "Gemma-4-31B-IT",
+            "prompt_version": "nexus-investigator-v1",
+            "endpoint_host": "developer.amd.com.cn",
+            "request_timestamp": "2026-10-16T11:20:13.589Z",
+            "provider_request_id": "98402e8e417e411c8902cfe4ff08237c",
+            "input_tokens": "2851",
+            "output_tokens": "247",
+            "latency_ms": 36555,
+            "status": "SUCCEEDED"
+          }
+        ]
+      }
+    ],
+    "5": [
+      {
+        "case_key": "s05-dev",
+        "split": "dev",
+        "state": "TRIAGED",
+        "disposition": "REFUND_RECOMMENDED",
+        "inference_status": "USED",
+        "model_calls": 1,
+        "calls": [
+          {
+            "id": "call_3104185f37344eeebb88d9a64d906bfb",
+            "attempt_number": 1,
+            "mode": "LIVE",
+            "model_id": "Gemma-4-31B-IT",
+            "prompt_version": "nexus-investigator-v1",
+            "endpoint_host": "developer.amd.com.cn",
+            "request_timestamp": "2026-10-16T11:20:53.287Z",
+            "provider_request_id": "10677638d86040b9b0ad47590014a137",
+            "input_tokens": "2881",
+            "output_tokens": "271",
+            "latency_ms": 13581,
+            "status": "SUCCEEDED"
+          }
+        ]
+      }
+    ],
+    "6": [
+      {
+        "case_key": "s06-dev",
+        "split": "dev",
+        "state": "NEEDS_HUMAN",
+        "disposition": "HUMAN_REVIEW_REQUIRED",
+        "inference_status": "SKIPPED_POLICY",
+        "model_calls": 0,
+        "assertion": "zero model calls (policy short-circuit, SKIPPED_POLICY)",
+        "assertion_holds": true
+      }
+    ],
+    "7": [
+      {
+        "case_key": "s07-dev",
+        "split": "dev",
+        "state": "NEEDS_HUMAN",
+        "disposition": "HUMAN_REVIEW_REQUIRED",
+        "inference_status": "SKIPPED_POLICY",
+        "model_calls": 0,
+        "assertion": "zero model calls (policy short-circuit, SKIPPED_POLICY)",
+        "assertion_holds": true
+      }
+    ],
+    "8": [
+      {
+        "case_key": "s08-dev",
+        "split": "dev",
+        "state": "TRIAGED",
+        "disposition": "NO_REFUND_RECOMMENDED",
+        "inference_status": "USED",
+        "model_calls": 1,
+        "calls": [
+          {
+            "id": "call_49c2d531baa24976b60c81d8c8a7d8f1",
+            "attempt_number": 1,
+            "mode": "LIVE",
+            "model_id": "Gemma-4-31B-IT",
+            "prompt_version": "nexus-investigator-v1",
+            "endpoint_host": "developer.amd.com.cn",
+            "request_timestamp": "2026-10-16T11:21:10.078Z",
+            "provider_request_id": "7fb9c4dd488d4d889574eb2ae942e908",
+            "input_tokens": "2887",
+            "output_tokens": "274",
+            "latency_ms": 18862,
+            "status": "SUCCEEDED"
+          }
+        ]
+      }
+    ],
+    "9": [
+      {
+        "case_key": "s09-dev",
+        "split": "dev",
+        "state": "TRIAGED",
+        "disposition": "CLARIFICATION_REQUIRED",
+        "inference_status": "USED",
+        "model_calls": 1,
+        "calls": [
+          {
+            "id": "call_29d8f09206f14c28834d2bd769abf638",
+            "attempt_number": 1,
+            "mode": "LIVE",
+            "model_id": "Gemma-4-31B-IT",
+            "prompt_version": "nexus-investigator-v1",
+            "endpoint_host": "developer.amd.com.cn",
+            "request_timestamp": "2026-10-16T11:21:32.082Z",
+            "provider_request_id": "a7689cec26ed481eb5179d6dc1b3e7a3",
+            "input_tokens": "2634",
+            "output_tokens": "223",
+            "latency_ms": 9259,
+            "status": "SUCCEEDED"
+          }
+        ]
+      }
+    ],
+    "10": [
+      {
+        "case_key": "s10-dev",
+        "split": "dev",
+        "state": "NEEDS_HUMAN",
+        "disposition": "HUMAN_REVIEW_REQUIRED",
+        "inference_status": "SKIPPED_POLICY",
+        "model_calls": 0,
+        "assertion": "zero model calls (policy short-circuit, SKIPPED_POLICY)",
+        "assertion_holds": true
+      }
+    ],
+    "11": [
+      {
+        "case_key": "s11-dev",
+        "split": "dev",
+        "state": "NEEDS_HUMAN",
+        "disposition": "HUMAN_REVIEW_REQUIRED",
+        "inference_status": "SKIPPED_POLICY",
+        "model_calls": 0,
+        "assertion": "zero model calls (policy short-circuit, SKIPPED_POLICY)",
+        "assertion_holds": true
+      }
+    ],
+    "12": [
+      {
+        "case_key": "s12-dev",
+        "split": "dev",
+        "state": "NEEDS_HUMAN",
+        "disposition": "HUMAN_REVIEW_REQUIRED",
+        "inference_status": "USED",
+        "model_calls": 1,
+        "calls": [
+          {
+            "id": "call_1b2c1afa8bf94f349722d07c276b8d29",
+            "attempt_number": 1,
+            "mode": "LIVE",
+            "model_id": "Gemma-4-31B-IT",
+            "prompt_version": "nexus-investigator-v1",
+            "endpoint_host": "developer.amd.com.cn",
+            "request_timestamp": "2026-10-16T11:21:44.556Z",
+            "provider_request_id": "244da7bfab47462486e3621d4a570023",
+            "input_tokens": "2637",
+            "output_tokens": "201",
+            "latency_ms": 23165,
+            "status": "SUCCEEDED"
+          }
+        ]
+      }
+    ]
+  },
+  "policy_skip_violations": [],
+  "note": "Provider fields are copied from the response; 'unavailable' means the provider did not report them."
+}
