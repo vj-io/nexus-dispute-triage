@@ -190,7 +190,7 @@ AMD_SEND_MAX_TOKENS=0          # required for Gemma-4-31B-IT; .env.example ships
 
 `.venv/bin/python inference.py --smoke` lists the available models and sends one tiny request. `RECORD_LIVE=1` appends each successful live response to `data/recorded/live.jsonl` for later replay. In live mode without `ACCESS_TOKEN`, the API answers only loopback clients and returns 503 to everyone else; set `ACCESS_TOKEN` for any other deployment.
 
-**Recorded mode** (`MODE=recorded`) replays stored AMD responses and never touches the network. A replay is keyed by complaint, selected orders, evidence hash, policy hash, model ID and prompt version; a miss fails visibly as `MODEL_UNAVAILABLE` and never falls back to a live call. The recordings cover the 12 development scenarios listed by `GET /scenarios` (the 8 inference-eligible ones replay; the 4 policy-skipped ones need no model). Free-text complaints you type yourself will miss.
+**Recorded mode** (`MODE=recorded`) replays stored AMD responses and never touches the network. A replay is keyed by complaint, selected orders, evidence hash, policy hash, model ID and prompt version; a miss fails visibly as `MODEL_UNAVAILABLE` and never falls back to a live call. The recordings cover all 24 authored cases (16 inference-eligible ones replay from the dev and frozen held-out live runs; the 8 policy-skipped ones need no model), including the 12 scenarios listed by `GET /scenarios`. Free-text complaints you type yourself will miss.
 
 ## Docker
 
@@ -207,6 +207,15 @@ docker run --rm -p 127.0.0.1:8000:8000 \
   -e AMD_API_KEY=<your key> -e AMD_BASE_URL=https://developer.amd.com.cn/radeon/api/v1 \
   -e AMD_MODEL=Gemma-4-31B-IT -e AMD_SEND_MAX_TOKENS=0 nexus
 ```
+
+To fill the Insights panel in a fresh container, replay all 24 authored cases once (zero AMD calls; the run is labelled RECORDED):
+
+```bash
+docker run -d --name nexus -p 127.0.0.1:8000:8000 nexus
+docker exec nexus python eval.py --split all --mode recorded --label demo --run-id demo-all-recorded --evidence-dir /tmp/ev
+```
+
+Verified on 2026-10-16 from a fresh clone: `docker build`, recorded mode (refund, policy skip and out-of-domain cases), and live mode with a key and `ACCESS_TOKEN` (401 without the token, a successful Gemma call with it).
 
 Add `-v nexus-data:/data` to keep the SQLite file (`/data/nexus.db`) between runs. The image runs one uvicorn worker as a non-root user; `.env` files are excluded by `.dockerignore`, so pass secrets with `-e`.
 

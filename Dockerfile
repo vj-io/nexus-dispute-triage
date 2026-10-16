@@ -3,7 +3,10 @@ FROM python:3.12-slim
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     MODE=recorded \
-    DATABASE_URL=sqlite:////data/nexus.db
+    DATABASE_URL=sqlite:////data/nexus.db \
+    AMD_BASE_URL=https://developer.amd.com.cn/radeon/api/v1 \
+    AMD_MODEL=Gemma-4-31B-IT \
+    AMD_SEND_MAX_TOKENS=0
 
 WORKDIR /app
 COPY requirements.txt .
