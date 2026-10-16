@@ -259,7 +259,7 @@ class Store:
         else:
             raise ValueError("unsupported database URL scheme (use sqlite:/// or postgres://)")
         self.url = url  # may hold credentials: never log or echo it
-        self.caps = {"requests": _cap(request_cap, "REQUEST_CAP", 300),
+        self.caps = {"requests": _cap(request_cap, "REQUEST_CAP", 600),
                      "tokens": _cap(token_cap, "TOKEN_CAP", 600000)}
 
     @contextmanager

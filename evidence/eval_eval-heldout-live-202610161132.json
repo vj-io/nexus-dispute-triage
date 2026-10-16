@@ -1,0 +1,1968 @@
+{
+  "run_id": "eval-heldout-live-202610161132",
+  "label": "frozen",
+  "split": "heldout",
+  "mode": "live",
+  "model_id": "Gemma-4-31B-IT",
+  "prompt_version": "nexus-investigator-v1",
+  "policy_version": "v1",
+  "policy_hash": "47a2db651785cfc872a7a300e8901b0afab3929364210e8d72d97e3c4ad3e4c2",
+  "started_at": "2026-10-16T11:32:46Z",
+  "ended_at": "2026-10-16T11:38:05Z",
+  "db": "sqlite:///nexus.db",
+  "endpoint_hosts": [
+    "developer.amd.com.cn"
+  ],
+  "observed_model_ids": [
+    "Gemma-4-31B-IT"
+  ],
+  "system_a": "deterministic — no inference",
+  "system_b": "NEXUS (live)",
+  "metrics": {
+    "A": {
+      "cases": 12,
+      "disposition_accuracy": {
+        "num": 10,
+        "den": 12,
+        "pct": 83.3
+      },
+      "review_reason_correct": {
+        "num": 5,
+        "den": 6,
+        "pct": 83.3
+      },
+      "recommendation_correct": {
+        "num": 11,
+        "den": 12,
+        "pct": 91.7
+      },
+      "recommendation_correct_gold_refund": {
+        "num": 1,
+        "den": 2,
+        "pct": 50.0
+      },
+      "net_owed_correct": {
+        "num": 12,
+        "den": 12,
+        "pct": 100.0
+      },
+      "mandatory_recall": {
+        "num": 4,
+        "den": 4,
+        "pct": 100.0,
+        "missed": []
+      },
+      "automatable": {
+        "denominator": 6,
+        "escalations": 0,
+        "clarifications": 1,
+        "no_outcome": 0,
+        "combined": 1,
+        "combined_rate": {
+          "num": 1,
+          "den": 6,
+          "pct": 16.7
+        },
+        "escalation_reasons": {},
+        "keys": [
+          "s02-heldout"
+        ]
+      },
+      "critical_failures": {
+        "rows": 0,
+        "denominator": 12,
+        "by_type": {},
+        "keys": []
+      },
+      "mapping_accuracy": {
+        "num": 6,
+        "den": 7,
+        "pct": 85.7,
+        "provided": {
+          "num": 8,
+          "den": 12,
+          "pct": 66.7
+        }
+      },
+      "rubric": {
+        "applicable_cases": 7,
+        "items": {
+          "correct_distinction": {
+            "num": 6,
+            "den": 7,
+            "pct": 85.7
+          },
+          "relevant_charge_referenced": {
+            "num": 6,
+            "den": 7,
+            "pct": 85.7
+          },
+          "no_unsupported_promise": {
+            "num": 7,
+            "den": 7,
+            "pct": 100.0
+          }
+        },
+        "total": {
+          "num": 19,
+          "den": 21,
+          "pct": 90.5
+        },
+        "not_applicable": 5
+      },
+      "template_usage": {
+        "num": 8,
+        "den": 8,
+        "pct": 100.0
+      },
+      "operations": {
+        "model_calls": 0,
+        "cases_with_calls": 0,
+        "policy_skips": 0,
+        "unavailable_model": 0,
+        "output_invalid": 0,
+        "repair_rate": {
+          "num": 0,
+          "den": 0,
+          "pct": null
+        },
+        "retries": 0,
+        "explanation_code_matches_gold": {
+          "num": 0,
+          "den": 0,
+          "pct": null
+        },
+        "validation_rejections_v8": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "tokens_reported_cases": {
+          "num": 0,
+          "den": 0,
+          "pct": null
+        },
+        "latency_ms": null
+      },
+      "by_family": {
+        "1": {
+          "cases": 1,
+          "failed": 0,
+          "failed_keys": []
+        },
+        "2": {
+          "cases": 1,
+          "failed": 1,
+          "failed_keys": [
+            "s02-heldout"
+          ]
+        },
+        "3": {
+          "cases": 1,
+          "failed": 0,
+          "failed_keys": []
+        },
+        "4": {
+          "cases": 1,
+          "failed": 0,
+          "failed_keys": []
+        },
+        "5": {
+          "cases": 1,
+          "failed": 0,
+          "failed_keys": []
+        },
+        "6": {
+          "cases": 1,
+          "failed": 0,
+          "failed_keys": []
+        },
+        "7": {
+          "cases": 1,
+          "failed": 0,
+          "failed_keys": []
+        },
+        "8": {
+          "cases": 1,
+          "failed": 0,
+          "failed_keys": []
+        },
+        "9": {
+          "cases": 1,
+          "failed": 0,
+          "failed_keys": []
+        },
+        "10": {
+          "cases": 1,
+          "failed": 0,
+          "failed_keys": []
+        },
+        "11": {
+          "cases": 1,
+          "failed": 0,
+          "failed_keys": []
+        },
+        "12": {
+          "cases": 1,
+          "failed": 1,
+          "failed_keys": [
+            "s12-heldout"
+          ]
+        }
+      }
+    },
+    "B": {
+      "cases": 12,
+      "disposition_accuracy": {
+        "num": 12,
+        "den": 12,
+        "pct": 100.0
+      },
+      "review_reason_correct": {
+        "num": 6,
+        "den": 6,
+        "pct": 100.0
+      },
+      "recommendation_correct": {
+        "num": 12,
+        "den": 12,
+        "pct": 100.0
+      },
+      "recommendation_correct_gold_refund": {
+        "num": 2,
+        "den": 2,
+        "pct": 100.0
+      },
+      "net_owed_correct": {
+        "num": 12,
+        "den": 12,
+        "pct": 100.0
+      },
+      "mandatory_recall": {
+        "num": 4,
+        "den": 4,
+        "pct": 100.0,
+        "missed": []
+      },
+      "automatable": {
+        "denominator": 6,
+        "escalations": 0,
+        "clarifications": 0,
+        "no_outcome": 0,
+        "combined": 0,
+        "combined_rate": {
+          "num": 0,
+          "den": 6,
+          "pct": 0.0
+        },
+        "escalation_reasons": {},
+        "keys": []
+      },
+      "critical_failures": {
+        "rows": 0,
+        "denominator": 12,
+        "by_type": {},
+        "keys": []
+      },
+      "mapping_accuracy": {
+        "num": 7,
+        "den": 7,
+        "pct": 100.0,
+        "provided": {
+          "num": 8,
+          "den": 12,
+          "pct": 66.7
+        }
+      },
+      "rubric": {
+        "applicable_cases": 7,
+        "items": {
+          "correct_distinction": {
+            "num": 7,
+            "den": 7,
+            "pct": 100.0
+          },
+          "relevant_charge_referenced": {
+            "num": 7,
+            "den": 7,
+            "pct": 100.0
+          },
+          "no_unsupported_promise": {
+            "num": 7,
+            "den": 7,
+            "pct": 100.0
+          }
+        },
+        "total": {
+          "num": 21,
+          "den": 21,
+          "pct": 100.0
+        },
+        "not_applicable": 5
+      },
+      "template_usage": {
+        "num": 7,
+        "den": 7,
+        "pct": 100.0
+      },
+      "operations": {
+        "model_calls": 9,
+        "cases_with_calls": 8,
+        "policy_skips": 4,
+        "unavailable_model": 0,
+        "output_invalid": 0,
+        "repair_rate": {
+          "num": 0,
+          "den": 8,
+          "pct": 0.0
+        },
+        "retries": 1,
+        "explanation_code_matches_gold": {
+          "num": 8,
+          "den": 8,
+          "pct": 100.0
+        },
+        "validation_rejections_v8": 0,
+        "tokens_in": "unavailable (partial)",
+        "tokens_out": "unavailable (partial)",
+        "tokens_reported_cases": {
+          "num": 7,
+          "den": 8,
+          "pct": 87.5
+        },
+        "latency_ms": {
+          "calls": 8,
+          "mean": 29387,
+          "median": 26284,
+          "max": 50365
+        }
+      },
+      "by_family": {
+        "1": {
+          "cases": 1,
+          "failed": 0,
+          "failed_keys": []
+        },
+        "2": {
+          "cases": 1,
+          "failed": 0,
+          "failed_keys": []
+        },
+        "3": {
+          "cases": 1,
+          "failed": 0,
+          "failed_keys": []
+        },
+        "4": {
+          "cases": 1,
+          "failed": 0,
+          "failed_keys": []
+        },
+        "5": {
+          "cases": 1,
+          "failed": 0,
+          "failed_keys": []
+        },
+        "6": {
+          "cases": 1,
+          "failed": 0,
+          "failed_keys": []
+        },
+        "7": {
+          "cases": 1,
+          "failed": 0,
+          "failed_keys": []
+        },
+        "8": {
+          "cases": 1,
+          "failed": 0,
+          "failed_keys": []
+        },
+        "9": {
+          "cases": 1,
+          "failed": 0,
+          "failed_keys": []
+        },
+        "10": {
+          "cases": 1,
+          "failed": 0,
+          "failed_keys": []
+        },
+        "11": {
+          "cases": 1,
+          "failed": 0,
+          "failed_keys": []
+        },
+        "12": {
+          "cases": 1,
+          "failed": 0,
+          "failed_keys": []
+        }
+      }
+    }
+  },
+  "comparison": {
+    "disposition_accuracy": "B better",
+    "recommendation_correct": "B better",
+    "mandatory_recall": "tie",
+    "unnecessary_escalation_clarification": "B better",
+    "critical_failures": "tie",
+    "mapping_accuracy": "B better",
+    "reply_rubric_total": "B better"
+  },
+  "targets": {
+    "zero_critical_failures": {
+      "target": "zero critical failures (B, every case in the run)",
+      "value": 0,
+      "denominator": 12,
+      "pass": true
+    },
+    "unnecessary_escalation_clarification_max_2": {
+      "target": "at most 2 combined unnecessary escalations/clarifications on held-out automatable cases (B)",
+      "scope": "heldout",
+      "value": 0,
+      "denominator": 6,
+      "pass": true
+    },
+    "rubric_no_loss_vs_A": {
+      "target": "no loss versus A on applicable copy-ready reply rubric totals",
+      "scope": "heldout",
+      "value": {
+        "A": 19,
+        "B": 21
+      },
+      "denominator": 21,
+      "pass": true
+    }
+  },
+  "policy_skip_violations": [],
+  "budget_after": [
+    {
+      "id": "cost_micro_usd:2026-10-15",
+      "quota_unit": "micro_usd",
+      "cap": 800000,
+      "consumed": 6300,
+      "reserved": 0,
+      "reset_boundary": "2026-10-16T13:30:00Z"
+    },
+    {
+      "id": "requests",
+      "quota_unit": "requests",
+      "cap": 600,
+      "consumed": 20,
+      "reserved": 0,
+      "reset_boundary": "never"
+    },
+    {
+      "id": "tokens",
+      "quota_unit": "tokens",
+      "cap": 600000,
+      "consumed": 62736,
+      "reserved": 0,
+      "reset_boundary": "never"
+    }
+  ],
+  "rows": [
+    {
+      "case_key": "s01-heldout",
+      "family": 1,
+      "split": "heldout",
+      "system": "A",
+      "system_label": "deterministic — no inference",
+      "run_mode": "DETERMINISTIC",
+      "inference_status": "NOT_APPLICABLE",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "TRIAGED",
+      "disposition": "NO_REFUND_RECOMMENDED",
+      "review_reason": null,
+      "recommended_minor": null,
+      "currency": "EUR",
+      "net_owed": 0,
+      "mapping_status": "MATCH",
+      "explanation_code": "AUTH_HOLD_NOT_CHARGE",
+      "missing_fields": [],
+      "model_calls": 0,
+      "attempts": 0,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": 0,
+      "call_latencies_ms": [],
+      "input_tokens": "n/a (no call)",
+      "output_tokens": "n/a (no call)",
+      "provider_request_ids": [],
+      "errors": [],
+      "reply": "Hi Lena Fischer,\n\nThanks for getting in touch.\n\nHere is what our records show for order ord_9830 (Mechanical keyboard):\n- pay_7235 (captured): €129.00 on Visa ending 2210, captured on 2026-10-13\n- pay_7443 (authorized): €129.00 on Mastercard ending 8307, authorized on 2026-10-14, a temporary hold, expected to drop off by 2026-10-21\n\nAn authorization is a hold, not a charge. Under our policy a hold is expected to drop off by its recorded expiry date; your bank's timing may vary. This is not a guarantee. On this order captured payments total €129.00 against an order total of €129.00, so we are not recommending a refund.\n\n— NEXUS support (draft for agent review)",
+      "calls": [],
+      "template_ok": true,
+      "a": {
+        "gold_disposition": "NO_REFUND_RECOMMENDED",
+        "gold_codes": [
+          "AUTH_HOLD_NOT_CHARGE",
+          "SINGLE_CHARGE_ONLY"
+        ],
+        "disposition_ok": true,
+        "reason_ok": null,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": false,
+        "recall_ok": null,
+        "gold_automatable": true,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": true,
+        "rubric": {
+          "correct_distinction": true,
+          "relevant_charge_referenced": true,
+          "no_unsupported_promise": true
+        },
+        "failure_reasons": []
+      }
+    },
+    {
+      "case_key": "s02-heldout",
+      "family": 2,
+      "split": "heldout",
+      "system": "A",
+      "system_label": "deterministic — no inference",
+      "run_mode": "DETERMINISTIC",
+      "inference_status": "NOT_APPLICABLE",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "TRIAGED",
+      "disposition": "CLARIFICATION_REQUIRED",
+      "review_reason": "AMBIGUOUS_MAPPING",
+      "recommended_minor": null,
+      "currency": "GBP",
+      "net_owed": 6450,
+      "mapping_status": "MISMATCH",
+      "explanation_code": "NEEDS_DETAILS",
+      "missing_fields": [
+        "amount"
+      ],
+      "model_calls": 0,
+      "attempts": 0,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": 0,
+      "call_latencies_ms": [],
+      "input_tokens": "n/a (no call)",
+      "output_tokens": "n/a (no call)",
+      "provider_request_ids": [],
+      "errors": [],
+      "reply": "Hi Hannah Whitfield,\n\nThanks for getting in touch.\n\nWe could not match your message to a charge on order ord_3260. Could you send us:\n- the amount charged\n\nPlease don't send your full card number. Once we have this we will take another look.\n\n— NEXUS support (draft for agent review)",
+      "calls": [],
+      "template_ok": true,
+      "a": {
+        "gold_disposition": "REFUND_RECOMMENDED",
+        "gold_codes": [
+          "DUPLICATE_CAPTURE_REFUND"
+        ],
+        "disposition_ok": false,
+        "reason_ok": null,
+        "recommendation_ok": false,
+        "net_owed_ok": true,
+        "gold_mandatory": false,
+        "recall_ok": null,
+        "gold_automatable": true,
+        "escalated": false,
+        "clarified": true,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": false,
+        "rubric": {
+          "correct_distinction": false,
+          "relevant_charge_referenced": false,
+          "no_unsupported_promise": true
+        },
+        "failure_reasons": [
+          "disposition CLARIFICATION_REQUIRED (gold REFUND_RECOMMENDED)",
+          "recommendation None GBP (gold 6450 GBP)",
+          "mapping MISMATCH (gold MATCH)",
+          "rubric: correct_distinction failed",
+          "rubric: relevant_charge_referenced failed"
+        ]
+      }
+    },
+    {
+      "case_key": "s03-heldout",
+      "family": 3,
+      "split": "heldout",
+      "system": "A",
+      "system_label": "deterministic — no inference",
+      "run_mode": "DETERMINISTIC",
+      "inference_status": "NOT_APPLICABLE",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "TRIAGED",
+      "disposition": "NO_REFUND_RECOMMENDED",
+      "review_reason": null,
+      "recommended_minor": null,
+      "currency": "USD",
+      "net_owed": 0,
+      "mapping_status": "MATCH",
+      "explanation_code": "PARTIAL_CAPTURES_MATCH_TOTAL",
+      "missing_fields": [],
+      "model_calls": 0,
+      "attempts": 0,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": 0,
+      "call_latencies_ms": [],
+      "input_tokens": "n/a (no call)",
+      "output_tokens": "n/a (no call)",
+      "provider_request_ids": [],
+      "errors": [],
+      "reply": "Hi Grace Lindqvist,\n\nThanks for getting in touch.\n\nOrder ord_7690 (Laptop sleeve and charger) has these captured payments:\n- pay_6807 (captured): $60.00 on Amex ending 1009, captured on 2026-10-12\n- pay_1087 (captured): $36.00 on Amex ending 1009, captured on 2026-10-12\n\nTogether they add up to $96.00, exactly the order total of $96.00, so you were not charged more than the order total. We are not recommending a refund.\n\n— NEXUS support (draft for agent review)",
+      "calls": [],
+      "template_ok": true,
+      "a": {
+        "gold_disposition": "NO_REFUND_RECOMMENDED",
+        "gold_codes": [
+          "PARTIAL_CAPTURES_MATCH_TOTAL"
+        ],
+        "disposition_ok": true,
+        "reason_ok": null,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": false,
+        "recall_ok": null,
+        "gold_automatable": true,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": true,
+        "rubric": {
+          "correct_distinction": true,
+          "relevant_charge_referenced": true,
+          "no_unsupported_promise": true
+        },
+        "failure_reasons": []
+      }
+    },
+    {
+      "case_key": "s04-heldout",
+      "family": 4,
+      "split": "heldout",
+      "system": "A",
+      "system_label": "deterministic — no inference",
+      "run_mode": "DETERMINISTIC",
+      "inference_status": "NOT_APPLICABLE",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "TRIAGED",
+      "disposition": "NO_REFUND_RECOMMENDED",
+      "review_reason": null,
+      "recommended_minor": null,
+      "currency": "EUR",
+      "net_owed": 0,
+      "mapping_status": "MATCH",
+      "explanation_code": "ALREADY_CORRECTED",
+      "missing_fields": [],
+      "model_calls": 0,
+      "attempts": 0,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": 0,
+      "call_latencies_ms": [],
+      "input_tokens": "n/a (no call)",
+      "output_tokens": "n/a (no call)",
+      "provider_request_ids": [],
+      "errors": [],
+      "reply": "Hi Sofia Marchetti,\n\nThanks for getting in touch.\n\nOrder ord_8767 (Yoga mat set) has an order total of €89.50, and these payments were captured on it, €179.00 in all:\n- pay_9991 (captured): €89.50 on Mastercard ending 6091, captured on 2026-10-08\n- pay_8496 (captured): €89.50 on Mastercard ending 6091, captured on 2026-10-08\nThe extra €89.50 has already been refunded:\n- ref_8524 (succeeded): €50.00 refunded against pay_9991 on 2026-10-10\n- ref_6883 (succeeded): €39.50 refunded against pay_9991 on 2026-10-10\n\nRefunds of €89.50 cover all of it, so nothing further is owed and we are not recommending another refund.\n\n— NEXUS support (draft for agent review)",
+      "calls": [],
+      "template_ok": true,
+      "a": {
+        "gold_disposition": "NO_REFUND_RECOMMENDED",
+        "gold_codes": [
+          "ALREADY_CORRECTED"
+        ],
+        "disposition_ok": true,
+        "reason_ok": null,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": false,
+        "recall_ok": null,
+        "gold_automatable": true,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": true,
+        "rubric": {
+          "correct_distinction": true,
+          "relevant_charge_referenced": true,
+          "no_unsupported_promise": true
+        },
+        "failure_reasons": []
+      }
+    },
+    {
+      "case_key": "s05-heldout",
+      "family": 5,
+      "split": "heldout",
+      "system": "A",
+      "system_label": "deterministic — no inference",
+      "run_mode": "DETERMINISTIC",
+      "inference_status": "NOT_APPLICABLE",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "TRIAGED",
+      "disposition": "REFUND_RECOMMENDED",
+      "review_reason": null,
+      "recommended_minor": 4200,
+      "currency": "USD",
+      "net_owed": 4200,
+      "mapping_status": "MATCH",
+      "explanation_code": "PARTIAL_CORRECTION_REMAINDER",
+      "missing_fields": [],
+      "model_calls": 0,
+      "attempts": 0,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": 0,
+      "call_latencies_ms": [],
+      "input_tokens": "n/a (no call)",
+      "output_tokens": "n/a (no call)",
+      "provider_request_ids": [],
+      "errors": [],
+      "reply": "Hi Chloe Dubois,\n\nThanks for getting in touch.\n\nOrder ord_3471 (Bluetooth speaker) has an order total of $42.00, but these payments were captured on it, $126.00 in all:\n- pay_9333 (captured): $42.00 on Discover ending 1117, captured on 2026-10-09\n- pay_4634 (captured): $42.00 on Discover ending 1117, captured on 2026-10-09\n- pay_1955 (captured): $42.00 on Discover ending 1117, captured on 2026-10-09\nRefunds already issued for the extra amount:\n- ref_4978 (succeeded): $42.00 refunded against pay_4634 on 2026-10-11\nThat leaves $42.00 still owed, after $42.00 already refunded.\n\nOur recommendation is a refund of $42.00. This recommendation is being passed to the payments team. Nothing further has been charged or refunded yet. Refunds under our policy are usually expected to settle within 7 business days; your bank's timing may vary. This is not a guarantee.\n\n— NEXUS support (draft for agent review)",
+      "calls": [],
+      "template_ok": true,
+      "a": {
+        "gold_disposition": "REFUND_RECOMMENDED",
+        "gold_codes": [
+          "PARTIAL_CORRECTION_REMAINDER"
+        ],
+        "disposition_ok": true,
+        "reason_ok": null,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": false,
+        "recall_ok": null,
+        "gold_automatable": true,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": true,
+        "rubric": {
+          "correct_distinction": true,
+          "relevant_charge_referenced": true,
+          "no_unsupported_promise": true
+        },
+        "failure_reasons": []
+      }
+    },
+    {
+      "case_key": "s06-heldout",
+      "family": 6,
+      "split": "heldout",
+      "system": "A",
+      "system_label": "deterministic — no inference",
+      "run_mode": "DETERMINISTIC",
+      "inference_status": "NOT_APPLICABLE",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "NEEDS_HUMAN",
+      "disposition": "HUMAN_REVIEW_REQUIRED",
+      "review_reason": "REFUND_PENDING",
+      "recommended_minor": null,
+      "currency": "INR",
+      "net_owed": 249900,
+      "mapping_status": "unavailable",
+      "explanation_code": null,
+      "missing_fields": [],
+      "model_calls": 0,
+      "attempts": 0,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": 0,
+      "call_latencies_ms": [],
+      "input_tokens": "n/a (no call)",
+      "output_tokens": "n/a (no call)",
+      "provider_request_ids": [],
+      "errors": [],
+      "reply": null,
+      "calls": [],
+      "template_ok": null,
+      "a": {
+        "gold_disposition": "HUMAN_REVIEW_REQUIRED",
+        "gold_codes": [],
+        "disposition_ok": true,
+        "reason_ok": true,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": true,
+        "recall_ok": true,
+        "gold_automatable": false,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": null,
+        "rubric": null,
+        "failure_reasons": []
+      }
+    },
+    {
+      "case_key": "s07-heldout",
+      "family": 7,
+      "split": "heldout",
+      "system": "A",
+      "system_label": "deterministic — no inference",
+      "run_mode": "DETERMINISTIC",
+      "inference_status": "NOT_APPLICABLE",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "NEEDS_HUMAN",
+      "disposition": "HUMAN_REVIEW_REQUIRED",
+      "review_reason": "CHARGEBACK_OPEN",
+      "recommended_minor": null,
+      "currency": "EUR",
+      "net_owed": 0,
+      "mapping_status": "unavailable",
+      "explanation_code": null,
+      "missing_fields": [],
+      "model_calls": 0,
+      "attempts": 0,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": 0,
+      "call_latencies_ms": [],
+      "input_tokens": "n/a (no call)",
+      "output_tokens": "n/a (no call)",
+      "provider_request_ids": [],
+      "errors": [],
+      "reply": null,
+      "calls": [],
+      "template_ok": null,
+      "a": {
+        "gold_disposition": "HUMAN_REVIEW_REQUIRED",
+        "gold_codes": [],
+        "disposition_ok": true,
+        "reason_ok": true,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": true,
+        "recall_ok": true,
+        "gold_automatable": false,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": null,
+        "rubric": null,
+        "failure_reasons": []
+      }
+    },
+    {
+      "case_key": "s08-heldout",
+      "family": 8,
+      "split": "heldout",
+      "system": "A",
+      "system_label": "deterministic — no inference",
+      "run_mode": "DETERMINISTIC",
+      "inference_status": "NOT_APPLICABLE",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "TRIAGED",
+      "disposition": "NO_REFUND_RECOMMENDED",
+      "review_reason": null,
+      "recommended_minor": null,
+      "currency": "GBP",
+      "net_owed": 0,
+      "mapping_status": "MATCH",
+      "explanation_code": "SUBSCRIPTION_RENEWAL",
+      "missing_fields": [],
+      "model_calls": 0,
+      "attempts": 0,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": 0,
+      "call_latencies_ms": [],
+      "input_tokens": "n/a (no call)",
+      "output_tokens": "n/a (no call)",
+      "provider_request_ids": [],
+      "errors": [],
+      "reply": "Hi Amira Haddad,\n\nThanks for getting in touch.\n\nWe compared the orders you selected. They are separate orders, at least one of them a subscription, each with its own charge, and we have not added them together:\nOrder ord_9895 (Monthly plan, renewal of 15 Oct) [subscription], order total £12.99:\n- pay_3051 (captured): £12.99 on Visa ending 8830, captured on 2026-10-15\nOrder ord_4005 (Monthly plan, renewal of 15 Sep) [subscription], order total £12.99:\n- pay_4597 (captured): £12.99 on Visa ending 8830, captured on 2026-09-15\n\nOn order ord_9895, captured payments total £12.99 against an order total of £12.99, so we do not see an extra charge on it and are not recommending a refund.\n\n— NEXUS support (draft for agent review)",
+      "calls": [],
+      "template_ok": true,
+      "a": {
+        "gold_disposition": "NO_REFUND_RECOMMENDED",
+        "gold_codes": [
+          "SUBSCRIPTION_RENEWAL",
+          "SEPARATE_ORDERS",
+          "SINGLE_CHARGE_ONLY"
+        ],
+        "disposition_ok": true,
+        "reason_ok": null,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": false,
+        "recall_ok": null,
+        "gold_automatable": true,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": true,
+        "rubric": {
+          "correct_distinction": true,
+          "relevant_charge_referenced": true,
+          "no_unsupported_promise": true
+        },
+        "failure_reasons": []
+      }
+    },
+    {
+      "case_key": "s09-heldout",
+      "family": 9,
+      "split": "heldout",
+      "system": "A",
+      "system_label": "deterministic — no inference",
+      "run_mode": "DETERMINISTIC",
+      "inference_status": "NOT_APPLICABLE",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "TRIAGED",
+      "disposition": "CLARIFICATION_REQUIRED",
+      "review_reason": "AMBIGUOUS_MAPPING",
+      "recommended_minor": null,
+      "currency": "USD",
+      "net_owed": 0,
+      "mapping_status": "MISMATCH",
+      "explanation_code": "NEEDS_DETAILS",
+      "missing_fields": [
+        "date",
+        "amount"
+      ],
+      "model_calls": 0,
+      "attempts": 0,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": 0,
+      "call_latencies_ms": [],
+      "input_tokens": "n/a (no call)",
+      "output_tokens": "n/a (no call)",
+      "provider_request_ids": [],
+      "errors": [],
+      "reply": "Hi Tomás Rivera,\n\nThanks for getting in touch.\n\nWe could not match your message to a charge on order ord_7804. Could you send us:\n- the date of the charge (YYYY-MM-DD)\n- the amount charged\n\nPlease don't send your full card number. Once we have this we will take another look.\n\n— NEXUS support (draft for agent review)",
+      "calls": [],
+      "template_ok": true,
+      "a": {
+        "gold_disposition": "CLARIFICATION_REQUIRED",
+        "gold_codes": [
+          "NEEDS_DETAILS"
+        ],
+        "disposition_ok": true,
+        "reason_ok": true,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": false,
+        "recall_ok": null,
+        "gold_automatable": false,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": true,
+        "rubric": {
+          "correct_distinction": true,
+          "relevant_charge_referenced": true,
+          "no_unsupported_promise": true
+        },
+        "failure_reasons": []
+      }
+    },
+    {
+      "case_key": "s10-heldout",
+      "family": 10,
+      "split": "heldout",
+      "system": "A",
+      "system_label": "deterministic — no inference",
+      "run_mode": "DETERMINISTIC",
+      "inference_status": "NOT_APPLICABLE",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "NEEDS_HUMAN",
+      "disposition": "HUMAN_REVIEW_REQUIRED",
+      "review_reason": "ACCOUNT_RESTRICTED",
+      "recommended_minor": null,
+      "currency": "USD",
+      "net_owed": 5200,
+      "mapping_status": "unavailable",
+      "explanation_code": null,
+      "missing_fields": [],
+      "model_calls": 0,
+      "attempts": 0,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": 0,
+      "call_latencies_ms": [],
+      "input_tokens": "n/a (no call)",
+      "output_tokens": "n/a (no call)",
+      "provider_request_ids": [],
+      "errors": [],
+      "reply": null,
+      "calls": [],
+      "template_ok": null,
+      "a": {
+        "gold_disposition": "HUMAN_REVIEW_REQUIRED",
+        "gold_codes": [],
+        "disposition_ok": true,
+        "reason_ok": true,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": true,
+        "recall_ok": true,
+        "gold_automatable": false,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": null,
+        "rubric": null,
+        "failure_reasons": []
+      }
+    },
+    {
+      "case_key": "s11-heldout",
+      "family": 11,
+      "split": "heldout",
+      "system": "A",
+      "system_label": "deterministic — no inference",
+      "run_mode": "DETERMINISTIC",
+      "inference_status": "NOT_APPLICABLE",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "NEEDS_HUMAN",
+      "disposition": "HUMAN_REVIEW_REQUIRED",
+      "review_reason": "ADJUSTMENT_REVIEW",
+      "recommended_minor": null,
+      "currency": "USD",
+      "net_owed": null,
+      "mapping_status": "unavailable",
+      "explanation_code": null,
+      "missing_fields": [],
+      "model_calls": 0,
+      "attempts": 0,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": 0,
+      "call_latencies_ms": [],
+      "input_tokens": "n/a (no call)",
+      "output_tokens": "n/a (no call)",
+      "provider_request_ids": [],
+      "errors": [],
+      "reply": null,
+      "calls": [],
+      "template_ok": null,
+      "a": {
+        "gold_disposition": "HUMAN_REVIEW_REQUIRED",
+        "gold_codes": [],
+        "disposition_ok": true,
+        "reason_ok": true,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": true,
+        "recall_ok": true,
+        "gold_automatable": false,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": null,
+        "rubric": null,
+        "failure_reasons": []
+      }
+    },
+    {
+      "case_key": "s12-heldout",
+      "family": 12,
+      "split": "heldout",
+      "system": "A",
+      "system_label": "deterministic — no inference",
+      "run_mode": "DETERMINISTIC",
+      "inference_status": "NOT_APPLICABLE",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "TRIAGED",
+      "disposition": "NO_REFUND_RECOMMENDED",
+      "review_reason": null,
+      "recommended_minor": null,
+      "currency": "EUR",
+      "net_owed": 0,
+      "mapping_status": "MATCH",
+      "explanation_code": "SINGLE_CHARGE_ONLY",
+      "missing_fields": [],
+      "model_calls": 0,
+      "attempts": 0,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": 0,
+      "call_latencies_ms": [],
+      "input_tokens": "n/a (no call)",
+      "output_tokens": "n/a (no call)",
+      "provider_request_ids": [],
+      "errors": [],
+      "reply": "Hi Hana Weber,\n\nThanks for getting in touch.\n\nWe checked order ord_1387 (Scented candles) and found exactly one captured payment:\n- pay_8155 (captured): €33.00 on Mastercard ending 2284, captured on 2026-10-14\n\nOn this order captured payments total €33.00 against an order total of €33.00, so we do not see a duplicate charge and are not recommending a refund.\n\n— NEXUS support (draft for agent review)",
+      "calls": [],
+      "template_ok": true,
+      "a": {
+        "gold_disposition": "HUMAN_REVIEW_REQUIRED",
+        "gold_codes": [
+          "OUT_OF_DOMAIN"
+        ],
+        "disposition_ok": false,
+        "reason_ok": false,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": false,
+        "recall_ok": null,
+        "gold_automatable": false,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": null,
+        "rubric": null,
+        "failure_reasons": [
+          "disposition NO_REFUND_RECOMMENDED (gold HUMAN_REVIEW_REQUIRED)"
+        ]
+      }
+    },
+    {
+      "case_key": "s01-heldout",
+      "family": 1,
+      "split": "heldout",
+      "system": "B",
+      "system_label": "NEXUS (live)",
+      "run_mode": "LIVE",
+      "inference_status": "USED",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "TRIAGED",
+      "disposition": "NO_REFUND_RECOMMENDED",
+      "review_reason": null,
+      "recommended_minor": null,
+      "currency": "EUR",
+      "net_owed": 0,
+      "mapping_status": "MATCH",
+      "explanation_code": "AUTH_HOLD_NOT_CHARGE",
+      "missing_fields": [],
+      "model_calls": 2,
+      "attempts": 2,
+      "repair_used": false,
+      "retries": 1,
+      "latency_ms": 16149,
+      "wall_ms": 78213,
+      "call_latencies_ms": [
+        16149
+      ],
+      "input_tokens": "unavailable",
+      "output_tokens": "unavailable",
+      "provider_request_ids": [
+        "8ea2562be3844c90b3ed16972111b18e"
+      ],
+      "errors": [
+        "RETRY: transient provider error; waiting 2s",
+        "call 1: transient: provider timeout"
+      ],
+      "reply": "Hi Lena Fischer,\n\nThanks for getting in touch.\n\nHere is what our records show for order ord_9830 (Mechanical keyboard):\n- pay_7235 (captured): €129.00 on Visa ending 2210, captured on 2026-10-13\n- pay_7443 (authorized): €129.00 on Mastercard ending 8307, authorized on 2026-10-14, a temporary hold, expected to drop off by 2026-10-21\n\nAn authorization is a hold, not a charge. Under our policy a hold is expected to drop off by its recorded expiry date; your bank's timing may vary. This is not a guarantee. On this order captured payments total €129.00 against an order total of €129.00, so we are not recommending a refund.\n\n— NEXUS support (draft for agent review)",
+      "calls": [
+        {
+          "id": "call_f55c194b35a2492eae68aa0eca489fa1",
+          "attempt_number": 1,
+          "mode": "LIVE",
+          "model_id": "Gemma-4-31B-IT",
+          "prompt_version": "nexus-investigator-v1",
+          "endpoint_host": null,
+          "request_timestamp": null,
+          "provider_request_id": "unavailable",
+          "input_tokens": "unavailable",
+          "output_tokens": "unavailable",
+          "latency_ms": null,
+          "status": "UNKNOWN"
+        },
+        {
+          "id": "call_c7ed90a011c94518b0186425eb928fc9",
+          "attempt_number": 2,
+          "mode": "LIVE",
+          "model_id": "Gemma-4-31B-IT",
+          "prompt_version": "nexus-investigator-v1",
+          "endpoint_host": "developer.amd.com.cn",
+          "request_timestamp": "2026-10-16T11:33:48.317Z",
+          "provider_request_id": "8ea2562be3844c90b3ed16972111b18e",
+          "input_tokens": 2846,
+          "output_tokens": 231,
+          "latency_ms": 16149,
+          "status": "SUCCEEDED"
+        }
+      ],
+      "reused_existing_case": false,
+      "template_ok": true,
+      "a": {
+        "gold_disposition": "NO_REFUND_RECOMMENDED",
+        "gold_codes": [
+          "AUTH_HOLD_NOT_CHARGE",
+          "SINGLE_CHARGE_ONLY"
+        ],
+        "disposition_ok": true,
+        "reason_ok": null,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": false,
+        "recall_ok": null,
+        "gold_automatable": true,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": true,
+        "rubric": {
+          "correct_distinction": true,
+          "relevant_charge_referenced": true,
+          "no_unsupported_promise": true
+        },
+        "failure_reasons": []
+      }
+    },
+    {
+      "case_key": "s02-heldout",
+      "family": 2,
+      "split": "heldout",
+      "system": "B",
+      "system_label": "NEXUS (live)",
+      "run_mode": "LIVE",
+      "inference_status": "USED",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "TRIAGED",
+      "disposition": "REFUND_RECOMMENDED",
+      "review_reason": null,
+      "recommended_minor": 6450,
+      "currency": "GBP",
+      "net_owed": 6450,
+      "mapping_status": "MATCH",
+      "explanation_code": "DUPLICATE_CAPTURE_REFUND",
+      "missing_fields": [],
+      "model_calls": 1,
+      "attempts": 1,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": 24992,
+      "wall_ms": 25030,
+      "call_latencies_ms": [
+        24992
+      ],
+      "input_tokens": 2797,
+      "output_tokens": 236,
+      "provider_request_ids": [
+        "ef5339775864420594e723411612a8f5"
+      ],
+      "errors": [],
+      "reply": "Hi Hannah Whitfield,\n\nThanks for getting in touch.\n\nOrder ord_3260 (Ceramic dinner set) has an order total of £64.50, but these payments were captured on it, £129.00 in all:\n- pay_5342 (captured): £64.50 on Mastercard ending 7713, captured on 2026-10-14\n- pay_9957 (captured): £64.50 on Mastercard ending 7713, captured on 2026-10-14\nThat is £64.50 more than the order total.\n\nOur recommendation is a refund of £64.50. This recommendation is being passed to the payments team. Nothing has been charged or refunded yet. Refunds under our policy are usually expected to settle within 7 business days; your bank's timing may vary. This is not a guarantee.\n\n— NEXUS support (draft for agent review)",
+      "calls": [
+        {
+          "id": "call_50036f30779a48d38ebce63272f5abc1",
+          "attempt_number": 1,
+          "mode": "LIVE",
+          "model_id": "Gemma-4-31B-IT",
+          "prompt_version": "nexus-investigator-v1",
+          "endpoint_host": "developer.amd.com.cn",
+          "request_timestamp": "2026-10-16T11:34:07.617Z",
+          "provider_request_id": "ef5339775864420594e723411612a8f5",
+          "input_tokens": 2797,
+          "output_tokens": 236,
+          "latency_ms": 24992,
+          "status": "SUCCEEDED"
+        }
+      ],
+      "reused_existing_case": false,
+      "template_ok": true,
+      "a": {
+        "gold_disposition": "REFUND_RECOMMENDED",
+        "gold_codes": [
+          "DUPLICATE_CAPTURE_REFUND"
+        ],
+        "disposition_ok": true,
+        "reason_ok": null,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": false,
+        "recall_ok": null,
+        "gold_automatable": true,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": true,
+        "rubric": {
+          "correct_distinction": true,
+          "relevant_charge_referenced": true,
+          "no_unsupported_promise": true
+        },
+        "failure_reasons": []
+      }
+    },
+    {
+      "case_key": "s03-heldout",
+      "family": 3,
+      "split": "heldout",
+      "system": "B",
+      "system_label": "NEXUS (live)",
+      "run_mode": "LIVE",
+      "inference_status": "USED",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "TRIAGED",
+      "disposition": "NO_REFUND_RECOMMENDED",
+      "review_reason": null,
+      "recommended_minor": null,
+      "currency": "USD",
+      "net_owed": 0,
+      "mapping_status": "MATCH",
+      "explanation_code": "PARTIAL_CAPTURES_MATCH_TOTAL",
+      "missing_fields": [],
+      "model_calls": 1,
+      "attempts": 1,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": 16641,
+      "wall_ms": 16675,
+      "call_latencies_ms": [
+        16641
+      ],
+      "input_tokens": 2773,
+      "output_tokens": 235,
+      "provider_request_ids": [
+        "84dca59f9a00470c97720b78b5d09ec0"
+      ],
+      "errors": [],
+      "reply": "Hi Grace Lindqvist,\n\nThanks for getting in touch.\n\nOrder ord_7690 (Laptop sleeve and charger) has these captured payments:\n- pay_6807 (captured): $60.00 on Amex ending 1009, captured on 2026-10-12\n- pay_1087 (captured): $36.00 on Amex ending 1009, captured on 2026-10-12\n\nTogether they add up to $96.00, exactly the order total of $96.00, so you were not charged more than the order total. We are not recommending a refund.\n\n— NEXUS support (draft for agent review)",
+      "calls": [
+        {
+          "id": "call_ed96840ec6b24cd998a2952bf244da2f",
+          "attempt_number": 1,
+          "mode": "LIVE",
+          "model_id": "Gemma-4-31B-IT",
+          "prompt_version": "nexus-investigator-v1",
+          "endpoint_host": "developer.amd.com.cn",
+          "request_timestamp": "2026-10-16T11:34:35.748Z",
+          "provider_request_id": "84dca59f9a00470c97720b78b5d09ec0",
+          "input_tokens": 2773,
+          "output_tokens": 235,
+          "latency_ms": 16641,
+          "status": "SUCCEEDED"
+        }
+      ],
+      "reused_existing_case": false,
+      "template_ok": true,
+      "a": {
+        "gold_disposition": "NO_REFUND_RECOMMENDED",
+        "gold_codes": [
+          "PARTIAL_CAPTURES_MATCH_TOTAL"
+        ],
+        "disposition_ok": true,
+        "reason_ok": null,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": false,
+        "recall_ok": null,
+        "gold_automatable": true,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": true,
+        "rubric": {
+          "correct_distinction": true,
+          "relevant_charge_referenced": true,
+          "no_unsupported_promise": true
+        },
+        "failure_reasons": []
+      }
+    },
+    {
+      "case_key": "s04-heldout",
+      "family": 4,
+      "split": "heldout",
+      "system": "B",
+      "system_label": "NEXUS (live)",
+      "run_mode": "LIVE",
+      "inference_status": "USED",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "TRIAGED",
+      "disposition": "NO_REFUND_RECOMMENDED",
+      "review_reason": null,
+      "recommended_minor": null,
+      "currency": "EUR",
+      "net_owed": 0,
+      "mapping_status": "MATCH",
+      "explanation_code": "ALREADY_CORRECTED",
+      "missing_fields": [],
+      "model_calls": 1,
+      "attempts": 1,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": 27577,
+      "wall_ms": 27615,
+      "call_latencies_ms": [
+        27577
+      ],
+      "input_tokens": 2936,
+      "output_tokens": 284,
+      "provider_request_ids": [
+        "0668c8e51b3245319cf4dcb6e0d3487c"
+      ],
+      "errors": [],
+      "reply": "Hi Sofia Marchetti,\n\nThanks for getting in touch.\n\nOrder ord_8767 (Yoga mat set) has an order total of €89.50, and these payments were captured on it, €179.00 in all:\n- pay_9991 (captured): €89.50 on Mastercard ending 6091, captured on 2026-10-08\n- pay_8496 (captured): €89.50 on Mastercard ending 6091, captured on 2026-10-08\nThe extra €89.50 has already been refunded:\n- ref_8524 (succeeded): €50.00 refunded against pay_9991 on 2026-10-10\n- ref_6883 (succeeded): €39.50 refunded against pay_9991 on 2026-10-10\n\nRefunds of €89.50 cover all of it, so nothing further is owed and we are not recommending another refund.\n\n— NEXUS support (draft for agent review)",
+      "calls": [
+        {
+          "id": "call_964adfd469384577b2a1bc4378b48118",
+          "attempt_number": 1,
+          "mode": "LIVE",
+          "model_id": "Gemma-4-31B-IT",
+          "prompt_version": "nexus-investigator-v1",
+          "endpoint_host": "developer.amd.com.cn",
+          "request_timestamp": "2026-10-16T11:34:55.540Z",
+          "provider_request_id": "0668c8e51b3245319cf4dcb6e0d3487c",
+          "input_tokens": 2936,
+          "output_tokens": 284,
+          "latency_ms": 27577,
+          "status": "SUCCEEDED"
+        }
+      ],
+      "reused_existing_case": false,
+      "template_ok": true,
+      "a": {
+        "gold_disposition": "NO_REFUND_RECOMMENDED",
+        "gold_codes": [
+          "ALREADY_CORRECTED"
+        ],
+        "disposition_ok": true,
+        "reason_ok": null,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": false,
+        "recall_ok": null,
+        "gold_automatable": true,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": true,
+        "rubric": {
+          "correct_distinction": true,
+          "relevant_charge_referenced": true,
+          "no_unsupported_promise": true
+        },
+        "failure_reasons": []
+      }
+    },
+    {
+      "case_key": "s05-heldout",
+      "family": 5,
+      "split": "heldout",
+      "system": "B",
+      "system_label": "NEXUS (live)",
+      "run_mode": "LIVE",
+      "inference_status": "USED",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "TRIAGED",
+      "disposition": "REFUND_RECOMMENDED",
+      "review_reason": null,
+      "recommended_minor": 4200,
+      "currency": "USD",
+      "net_owed": 4200,
+      "mapping_status": "MATCH",
+      "explanation_code": "PARTIAL_CORRECTION_REMAINDER",
+      "missing_fields": [],
+      "model_calls": 1,
+      "attempts": 1,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": 50365,
+      "wall_ms": 50403,
+      "call_latencies_ms": [
+        50365
+      ],
+      "input_tokens": 3066,
+      "output_tokens": 317,
+      "provider_request_ids": [
+        "18af57fea30040d89b7494d92cb99f0e"
+      ],
+      "errors": [],
+      "reply": "Hi Chloe Dubois,\n\nThanks for getting in touch.\n\nOrder ord_3471 (Bluetooth speaker) has an order total of $42.00, but these payments were captured on it, $126.00 in all:\n- pay_9333 (captured): $42.00 on Discover ending 1117, captured on 2026-10-09\n- pay_4634 (captured): $42.00 on Discover ending 1117, captured on 2026-10-09\n- pay_1955 (captured): $42.00 on Discover ending 1117, captured on 2026-10-09\nRefunds already issued for the extra amount:\n- ref_4978 (succeeded): $42.00 refunded against pay_4634 on 2026-10-11\nThat leaves $42.00 still owed, after $42.00 already refunded.\n\nOur recommendation is a refund of $42.00. This recommendation is being passed to the payments team. Nothing further has been charged or refunded yet. Refunds under our policy are usually expected to settle within 7 business days; your bank's timing may vary. This is not a guarantee.\n\n— NEXUS support (draft for agent review)",
+      "calls": [
+        {
+          "id": "call_7a6507dce575428a82c33171535349f6",
+          "attempt_number": 1,
+          "mode": "LIVE",
+          "model_id": "Gemma-4-31B-IT",
+          "prompt_version": "nexus-investigator-v1",
+          "endpoint_host": "developer.amd.com.cn",
+          "request_timestamp": "2026-10-16T11:35:26.262Z",
+          "provider_request_id": "18af57fea30040d89b7494d92cb99f0e",
+          "input_tokens": 3066,
+          "output_tokens": 317,
+          "latency_ms": 50365,
+          "status": "SUCCEEDED"
+        }
+      ],
+      "reused_existing_case": false,
+      "template_ok": true,
+      "a": {
+        "gold_disposition": "REFUND_RECOMMENDED",
+        "gold_codes": [
+          "PARTIAL_CORRECTION_REMAINDER"
+        ],
+        "disposition_ok": true,
+        "reason_ok": null,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": false,
+        "recall_ok": null,
+        "gold_automatable": true,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": true,
+        "rubric": {
+          "correct_distinction": true,
+          "relevant_charge_referenced": true,
+          "no_unsupported_promise": true
+        },
+        "failure_reasons": []
+      }
+    },
+    {
+      "case_key": "s06-heldout",
+      "family": 6,
+      "split": "heldout",
+      "system": "B",
+      "system_label": "NEXUS (live)",
+      "run_mode": "LIVE",
+      "inference_status": "SKIPPED_POLICY",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "NEEDS_HUMAN",
+      "disposition": "HUMAN_REVIEW_REQUIRED",
+      "review_reason": "REFUND_PENDING",
+      "recommended_minor": null,
+      "currency": "INR",
+      "net_owed": 249900,
+      "mapping_status": "unavailable",
+      "explanation_code": null,
+      "missing_fields": [],
+      "model_calls": 0,
+      "attempts": 0,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": "n/a (no call)",
+      "wall_ms": 22,
+      "call_latencies_ms": [],
+      "input_tokens": "n/a (no call)",
+      "output_tokens": "n/a (no call)",
+      "provider_request_ids": [],
+      "errors": [],
+      "reply": null,
+      "calls": [],
+      "reused_existing_case": false,
+      "template_ok": null,
+      "a": {
+        "gold_disposition": "HUMAN_REVIEW_REQUIRED",
+        "gold_codes": [],
+        "disposition_ok": true,
+        "reason_ok": true,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": true,
+        "recall_ok": true,
+        "gold_automatable": false,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": null,
+        "rubric": null,
+        "failure_reasons": []
+      }
+    },
+    {
+      "case_key": "s07-heldout",
+      "family": 7,
+      "split": "heldout",
+      "system": "B",
+      "system_label": "NEXUS (live)",
+      "run_mode": "LIVE",
+      "inference_status": "SKIPPED_POLICY",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "NEEDS_HUMAN",
+      "disposition": "HUMAN_REVIEW_REQUIRED",
+      "review_reason": "CHARGEBACK_OPEN",
+      "recommended_minor": null,
+      "currency": "EUR",
+      "net_owed": 0,
+      "mapping_status": "unavailable",
+      "explanation_code": null,
+      "missing_fields": [],
+      "model_calls": 0,
+      "attempts": 0,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": "n/a (no call)",
+      "wall_ms": 20,
+      "call_latencies_ms": [],
+      "input_tokens": "n/a (no call)",
+      "output_tokens": "n/a (no call)",
+      "provider_request_ids": [],
+      "errors": [],
+      "reply": null,
+      "calls": [],
+      "reused_existing_case": false,
+      "template_ok": null,
+      "a": {
+        "gold_disposition": "HUMAN_REVIEW_REQUIRED",
+        "gold_codes": [],
+        "disposition_ok": true,
+        "reason_ok": true,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": true,
+        "recall_ok": true,
+        "gold_automatable": false,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": null,
+        "rubric": null,
+        "failure_reasons": []
+      }
+    },
+    {
+      "case_key": "s08-heldout",
+      "family": 8,
+      "split": "heldout",
+      "system": "B",
+      "system_label": "NEXUS (live)",
+      "run_mode": "LIVE",
+      "inference_status": "USED",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "TRIAGED",
+      "disposition": "NO_REFUND_RECOMMENDED",
+      "review_reason": null,
+      "recommended_minor": null,
+      "currency": "GBP",
+      "net_owed": 0,
+      "mapping_status": "MATCH",
+      "explanation_code": "SUBSCRIPTION_RENEWAL",
+      "missing_fields": [],
+      "model_calls": 1,
+      "attempts": 1,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": 20712,
+      "wall_ms": 20747,
+      "call_latencies_ms": [
+        20712
+      ],
+      "input_tokens": 2907,
+      "output_tokens": 278,
+      "provider_request_ids": [
+        "6872dab910774945a5274f73518ee7d6"
+      ],
+      "errors": [],
+      "reply": "Hi Amira Haddad,\n\nThanks for getting in touch.\n\nWe compared the orders you selected. They are separate orders, at least one of them a subscription, each with its own charge, and we have not added them together:\nOrder ord_9895 (Monthly plan, renewal of 15 Oct) [subscription], order total £12.99:\n- pay_3051 (captured): £12.99 on Visa ending 8830, captured on 2026-10-15\nOrder ord_4005 (Monthly plan, renewal of 15 Sep) [subscription], order total £12.99:\n- pay_4597 (captured): £12.99 on Visa ending 8830, captured on 2026-09-15\n\nOn order ord_9895, captured payments total £12.99 against an order total of £12.99, so we do not see an extra charge on it and are not recommending a refund.\n\n— NEXUS support (draft for agent review)",
+      "calls": [
+        {
+          "id": "call_7e14894d2f344b01b70b54275500d63f",
+          "attempt_number": 1,
+          "mode": "LIVE",
+          "model_id": "Gemma-4-31B-IT",
+          "prompt_version": "nexus-investigator-v1",
+          "endpoint_host": "developer.amd.com.cn",
+          "request_timestamp": "2026-10-16T11:36:19.832Z",
+          "provider_request_id": "6872dab910774945a5274f73518ee7d6",
+          "input_tokens": 2907,
+          "output_tokens": 278,
+          "latency_ms": 20712,
+          "status": "SUCCEEDED"
+        }
+      ],
+      "reused_existing_case": false,
+      "template_ok": true,
+      "a": {
+        "gold_disposition": "NO_REFUND_RECOMMENDED",
+        "gold_codes": [
+          "SUBSCRIPTION_RENEWAL",
+          "SEPARATE_ORDERS",
+          "SINGLE_CHARGE_ONLY"
+        ],
+        "disposition_ok": true,
+        "reason_ok": null,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": false,
+        "recall_ok": null,
+        "gold_automatable": true,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": true,
+        "rubric": {
+          "correct_distinction": true,
+          "relevant_charge_referenced": true,
+          "no_unsupported_promise": true
+        },
+        "failure_reasons": []
+      }
+    },
+    {
+      "case_key": "s09-heldout",
+      "family": 9,
+      "split": "heldout",
+      "system": "B",
+      "system_label": "NEXUS (live)",
+      "run_mode": "LIVE",
+      "inference_status": "USED",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "TRIAGED",
+      "disposition": "CLARIFICATION_REQUIRED",
+      "review_reason": "AMBIGUOUS_MAPPING",
+      "recommended_minor": null,
+      "currency": "USD",
+      "net_owed": 0,
+      "mapping_status": "MISMATCH",
+      "explanation_code": "NEEDS_DETAILS",
+      "missing_fields": [
+        "date",
+        "amount"
+      ],
+      "model_calls": 1,
+      "attempts": 1,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": 38450,
+      "wall_ms": 38488,
+      "call_latencies_ms": [
+        38450
+      ],
+      "input_tokens": 2621,
+      "output_tokens": 239,
+      "provider_request_ids": [
+        "3f23a0bd66bf4860a64df8fdd18b2b70"
+      ],
+      "errors": [],
+      "reply": "Hi Tomás Rivera,\n\nThanks for getting in touch.\n\nWe could not match your message to a charge on order ord_7804. Could you send us:\n- the date of the charge (YYYY-MM-DD)\n- the amount charged\n\nPlease don't send your full card number. Once we have this we will take another look.\n\n— NEXUS support (draft for agent review)",
+      "calls": [
+        {
+          "id": "call_b698bb1f3d6b4f8f964211b46fa10b10",
+          "attempt_number": 1,
+          "mode": "LIVE",
+          "model_id": "Gemma-4-31B-IT",
+          "prompt_version": "nexus-investigator-v1",
+          "endpoint_host": "developer.amd.com.cn",
+          "request_timestamp": "2026-10-16T11:36:43.694Z",
+          "provider_request_id": "3f23a0bd66bf4860a64df8fdd18b2b70",
+          "input_tokens": 2621,
+          "output_tokens": 239,
+          "latency_ms": 38450,
+          "status": "SUCCEEDED"
+        }
+      ],
+      "reused_existing_case": false,
+      "template_ok": true,
+      "a": {
+        "gold_disposition": "CLARIFICATION_REQUIRED",
+        "gold_codes": [
+          "NEEDS_DETAILS"
+        ],
+        "disposition_ok": true,
+        "reason_ok": true,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": false,
+        "recall_ok": null,
+        "gold_automatable": false,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": true,
+        "rubric": {
+          "correct_distinction": true,
+          "relevant_charge_referenced": true,
+          "no_unsupported_promise": true
+        },
+        "failure_reasons": []
+      }
+    },
+    {
+      "case_key": "s10-heldout",
+      "family": 10,
+      "split": "heldout",
+      "system": "B",
+      "system_label": "NEXUS (live)",
+      "run_mode": "LIVE",
+      "inference_status": "SKIPPED_POLICY",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "NEEDS_HUMAN",
+      "disposition": "HUMAN_REVIEW_REQUIRED",
+      "review_reason": "ACCOUNT_RESTRICTED",
+      "recommended_minor": null,
+      "currency": "USD",
+      "net_owed": 5200,
+      "mapping_status": "unavailable",
+      "explanation_code": null,
+      "missing_fields": [],
+      "model_calls": 0,
+      "attempts": 0,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": "n/a (no call)",
+      "wall_ms": 23,
+      "call_latencies_ms": [],
+      "input_tokens": "n/a (no call)",
+      "output_tokens": "n/a (no call)",
+      "provider_request_ids": [],
+      "errors": [],
+      "reply": null,
+      "calls": [],
+      "reused_existing_case": false,
+      "template_ok": null,
+      "a": {
+        "gold_disposition": "HUMAN_REVIEW_REQUIRED",
+        "gold_codes": [],
+        "disposition_ok": true,
+        "reason_ok": true,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": true,
+        "recall_ok": true,
+        "gold_automatable": false,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": null,
+        "rubric": null,
+        "failure_reasons": []
+      }
+    },
+    {
+      "case_key": "s11-heldout",
+      "family": 11,
+      "split": "heldout",
+      "system": "B",
+      "system_label": "NEXUS (live)",
+      "run_mode": "LIVE",
+      "inference_status": "SKIPPED_POLICY",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "NEEDS_HUMAN",
+      "disposition": "HUMAN_REVIEW_REQUIRED",
+      "review_reason": "ADJUSTMENT_REVIEW",
+      "recommended_minor": null,
+      "currency": "USD",
+      "net_owed": null,
+      "mapping_status": "unavailable",
+      "explanation_code": null,
+      "missing_fields": [],
+      "model_calls": 0,
+      "attempts": 0,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": "n/a (no call)",
+      "wall_ms": 21,
+      "call_latencies_ms": [],
+      "input_tokens": "n/a (no call)",
+      "output_tokens": "n/a (no call)",
+      "provider_request_ids": [],
+      "errors": [],
+      "reply": null,
+      "calls": [],
+      "reused_existing_case": false,
+      "template_ok": null,
+      "a": {
+        "gold_disposition": "HUMAN_REVIEW_REQUIRED",
+        "gold_codes": [],
+        "disposition_ok": true,
+        "reason_ok": true,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": true,
+        "recall_ok": true,
+        "gold_automatable": false,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": null,
+        "rubric": null,
+        "failure_reasons": []
+      }
+    },
+    {
+      "case_key": "s12-heldout",
+      "family": 12,
+      "split": "heldout",
+      "system": "B",
+      "system_label": "NEXUS (live)",
+      "run_mode": "LIVE",
+      "inference_status": "USED",
+      "dataset_run_id": "eval-heldout-live-202610161132",
+      "state": "NEEDS_HUMAN",
+      "disposition": "HUMAN_REVIEW_REQUIRED",
+      "review_reason": "OUT_OF_DOMAIN",
+      "recommended_minor": null,
+      "currency": "EUR",
+      "net_owed": 0,
+      "mapping_status": "AMBIGUOUS",
+      "explanation_code": "OUT_OF_DOMAIN",
+      "missing_fields": [],
+      "model_calls": 1,
+      "attempts": 1,
+      "repair_used": false,
+      "retries": 0,
+      "latency_ms": 40212,
+      "wall_ms": 40250,
+      "call_latencies_ms": [
+        40212
+      ],
+      "input_tokens": 2638,
+      "output_tokens": 202,
+      "provider_request_ids": [
+        "f9e91ea362f9458fb80d74d5e272174b"
+      ],
+      "errors": [],
+      "reply": null,
+      "calls": [
+        {
+          "id": "call_89412ee945a14b779f08148525d73632",
+          "attempt_number": 1,
+          "mode": "LIVE",
+          "model_id": "Gemma-4-31B-IT",
+          "prompt_version": "nexus-investigator-v1",
+          "endpoint_host": "developer.amd.com.cn",
+          "request_timestamp": "2026-10-16T11:37:25.353Z",
+          "provider_request_id": "f9e91ea362f9458fb80d74d5e272174b",
+          "input_tokens": 2638,
+          "output_tokens": 202,
+          "latency_ms": 40212,
+          "status": "SUCCEEDED"
+        }
+      ],
+      "reused_existing_case": false,
+      "template_ok": null,
+      "a": {
+        "gold_disposition": "HUMAN_REVIEW_REQUIRED",
+        "gold_codes": [
+          "OUT_OF_DOMAIN"
+        ],
+        "disposition_ok": true,
+        "reason_ok": true,
+        "recommendation_ok": true,
+        "net_owed_ok": true,
+        "gold_mandatory": false,
+        "recall_ok": null,
+        "gold_automatable": false,
+        "escalated": false,
+        "clarified": false,
+        "no_outcome": false,
+        "critical": [],
+        "mapping_ok": null,
+        "rubric": null,
+        "failure_reasons": []
+      }
+    }
+  ]
+}

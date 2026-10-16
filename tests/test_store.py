@@ -83,7 +83,7 @@ def budget(store):
 def test_init_seeds_default_budget_and_is_repeatable(store):
     store.init()
     b = budget(store)
-    assert (b["requests"]["cap"], b["tokens"]["cap"]) == (300, 600000)
+    assert (b["requests"]["cap"], b["tokens"]["cap"]) == (600, 600000)
     assert b["requests"]["quota_unit"] == "requests" and b["tokens"]["quota_unit"] == "tokens"
     assert all(r["consumed"] == 0 and r["reserved"] == 0 for r in b.values())
     assert store.health() is True

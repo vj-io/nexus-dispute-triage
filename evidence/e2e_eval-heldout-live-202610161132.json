@@ -1,0 +1,285 @@
+{
+  "run_id": "eval-heldout-live-202610161132",
+  "label": "frozen",
+  "run_mode": "LIVE",
+  "generated_at": "2026-10-16T11:38:05Z",
+  "model_id": "Gemma-4-31B-IT",
+  "prompt_version": "nexus-investigator-v1",
+  "endpoint_hosts": [
+    "developer.amd.com.cn"
+  ],
+  "families": {
+    "1": [
+      {
+        "case_key": "s01-heldout",
+        "split": "heldout",
+        "state": "TRIAGED",
+        "disposition": "NO_REFUND_RECOMMENDED",
+        "inference_status": "USED",
+        "model_calls": 2,
+        "calls": [
+          {
+            "id": "call_f55c194b35a2492eae68aa0eca489fa1",
+            "attempt_number": 1,
+            "mode": "LIVE",
+            "model_id": "Gemma-4-31B-IT",
+            "prompt_version": "nexus-investigator-v1",
+            "endpoint_host": null,
+            "request_timestamp": null,
+            "provider_request_id": "unavailable",
+            "input_tokens": "unavailable",
+            "output_tokens": "unavailable",
+            "latency_ms": null,
+            "status": "UNKNOWN"
+          },
+          {
+            "id": "call_c7ed90a011c94518b0186425eb928fc9",
+            "attempt_number": 2,
+            "mode": "LIVE",
+            "model_id": "Gemma-4-31B-IT",
+            "prompt_version": "nexus-investigator-v1",
+            "endpoint_host": "developer.amd.com.cn",
+            "request_timestamp": "2026-10-16T11:33:48.317Z",
+            "provider_request_id": "8ea2562be3844c90b3ed16972111b18e",
+            "input_tokens": 2846,
+            "output_tokens": 231,
+            "latency_ms": 16149,
+            "status": "SUCCEEDED"
+          }
+        ]
+      }
+    ],
+    "2": [
+      {
+        "case_key": "s02-heldout",
+        "split": "heldout",
+        "state": "TRIAGED",
+        "disposition": "REFUND_RECOMMENDED",
+        "inference_status": "USED",
+        "model_calls": 1,
+        "calls": [
+          {
+            "id": "call_50036f30779a48d38ebce63272f5abc1",
+            "attempt_number": 1,
+            "mode": "LIVE",
+            "model_id": "Gemma-4-31B-IT",
+            "prompt_version": "nexus-investigator-v1",
+            "endpoint_host": "developer.amd.com.cn",
+            "request_timestamp": "2026-10-16T11:34:07.617Z",
+            "provider_request_id": "ef5339775864420594e723411612a8f5",
+            "input_tokens": 2797,
+            "output_tokens": 236,
+            "latency_ms": 24992,
+            "status": "SUCCEEDED"
+          }
+        ]
+      }
+    ],
+    "3": [
+      {
+        "case_key": "s03-heldout",
+        "split": "heldout",
+        "state": "TRIAGED",
+        "disposition": "NO_REFUND_RECOMMENDED",
+        "inference_status": "USED",
+        "model_calls": 1,
+        "calls": [
+          {
+            "id": "call_ed96840ec6b24cd998a2952bf244da2f",
+            "attempt_number": 1,
+            "mode": "LIVE",
+            "model_id": "Gemma-4-31B-IT",
+            "prompt_version": "nexus-investigator-v1",
+            "endpoint_host": "developer.amd.com.cn",
+            "request_timestamp": "2026-10-16T11:34:35.748Z",
+            "provider_request_id": "84dca59f9a00470c97720b78b5d09ec0",
+            "input_tokens": 2773,
+            "output_tokens": 235,
+            "latency_ms": 16641,
+            "status": "SUCCEEDED"
+          }
+        ]
+      }
+    ],
+    "4": [
+      {
+        "case_key": "s04-heldout",
+        "split": "heldout",
+        "state": "TRIAGED",
+        "disposition": "NO_REFUND_RECOMMENDED",
+        "inference_status": "USED",
+        "model_calls": 1,
+        "calls": [
+          {
+            "id": "call_964adfd469384577b2a1bc4378b48118",
+            "attempt_number": 1,
+            "mode": "LIVE",
+            "model_id": "Gemma-4-31B-IT",
+            "prompt_version": "nexus-investigator-v1",
+            "endpoint_host": "developer.amd.com.cn",
+            "request_timestamp": "2026-10-16T11:34:55.540Z",
+            "provider_request_id": "0668c8e51b3245319cf4dcb6e0d3487c",
+            "input_tokens": 2936,
+            "output_tokens": 284,
+            "latency_ms": 27577,
+            "status": "SUCCEEDED"
+          }
+        ]
+      }
+    ],
+    "5": [
+      {
+        "case_key": "s05-heldout",
+        "split": "heldout",
+        "state": "TRIAGED",
+        "disposition": "REFUND_RECOMMENDED",
+        "inference_status": "USED",
+        "model_calls": 1,
+        "calls": [
+          {
+            "id": "call_7a6507dce575428a82c33171535349f6",
+            "attempt_number": 1,
+            "mode": "LIVE",
+            "model_id": "Gemma-4-31B-IT",
+            "prompt_version": "nexus-investigator-v1",
+            "endpoint_host": "developer.amd.com.cn",
+            "request_timestamp": "2026-10-16T11:35:26.262Z",
+            "provider_request_id": "18af57fea30040d89b7494d92cb99f0e",
+            "input_tokens": 3066,
+            "output_tokens": 317,
+            "latency_ms": 50365,
+            "status": "SUCCEEDED"
+          }
+        ]
+      }
+    ],
+    "6": [
+      {
+        "case_key": "s06-heldout",
+        "split": "heldout",
+        "state": "NEEDS_HUMAN",
+        "disposition": "HUMAN_REVIEW_REQUIRED",
+        "inference_status": "SKIPPED_POLICY",
+        "model_calls": 0,
+        "assertion": "zero model calls (policy short-circuit, SKIPPED_POLICY)",
+        "assertion_holds": true
+      }
+    ],
+    "7": [
+      {
+        "case_key": "s07-heldout",
+        "split": "heldout",
+        "state": "NEEDS_HUMAN",
+        "disposition": "HUMAN_REVIEW_REQUIRED",
+        "inference_status": "SKIPPED_POLICY",
+        "model_calls": 0,
+        "assertion": "zero model calls (policy short-circuit, SKIPPED_POLICY)",
+        "assertion_holds": true
+      }
+    ],
+    "8": [
+      {
+        "case_key": "s08-heldout",
+        "split": "heldout",
+        "state": "TRIAGED",
+        "disposition": "NO_REFUND_RECOMMENDED",
+        "inference_status": "USED",
+        "model_calls": 1,
+        "calls": [
+          {
+            "id": "call_7e14894d2f344b01b70b54275500d63f",
+            "attempt_number": 1,
+            "mode": "LIVE",
+            "model_id": "Gemma-4-31B-IT",
+            "prompt_version": "nexus-investigator-v1",
+            "endpoint_host": "developer.amd.com.cn",
+            "request_timestamp": "2026-10-16T11:36:19.832Z",
+            "provider_request_id": "6872dab910774945a5274f73518ee7d6",
+            "input_tokens": 2907,
+            "output_tokens": 278,
+            "latency_ms": 20712,
+            "status": "SUCCEEDED"
+          }
+        ]
+      }
+    ],
+    "9": [
+      {
+        "case_key": "s09-heldout",
+        "split": "heldout",
+        "state": "TRIAGED",
+        "disposition": "CLARIFICATION_REQUIRED",
+        "inference_status": "USED",
+        "model_calls": 1,
+        "calls": [
+          {
+            "id": "call_b698bb1f3d6b4f8f964211b46fa10b10",
+            "attempt_number": 1,
+            "mode": "LIVE",
+            "model_id": "Gemma-4-31B-IT",
+            "prompt_version": "nexus-investigator-v1",
+            "endpoint_host": "developer.amd.com.cn",
+            "request_timestamp": "2026-10-16T11:36:43.694Z",
+            "provider_request_id": "3f23a0bd66bf4860a64df8fdd18b2b70",
+            "input_tokens": 2621,
+            "output_tokens": 239,
+            "latency_ms": 38450,
+            "status": "SUCCEEDED"
+          }
+        ]
+      }
+    ],
+    "10": [
+      {
+        "case_key": "s10-heldout",
+        "split": "heldout",
+        "state": "NEEDS_HUMAN",
+        "disposition": "HUMAN_REVIEW_REQUIRED",
+        "inference_status": "SKIPPED_POLICY",
+        "model_calls": 0,
+        "assertion": "zero model calls (policy short-circuit, SKIPPED_POLICY)",
+        "assertion_holds": true
+      }
+    ],
+    "11": [
+      {
+        "case_key": "s11-heldout",
+        "split": "heldout",
+        "state": "NEEDS_HUMAN",
+        "disposition": "HUMAN_REVIEW_REQUIRED",
+        "inference_status": "SKIPPED_POLICY",
+        "model_calls": 0,
+        "assertion": "zero model calls (policy short-circuit, SKIPPED_POLICY)",
+        "assertion_holds": true
+      }
+    ],
+    "12": [
+      {
+        "case_key": "s12-heldout",
+        "split": "heldout",
+        "state": "NEEDS_HUMAN",
+        "disposition": "HUMAN_REVIEW_REQUIRED",
+        "inference_status": "USED",
+        "model_calls": 1,
+        "calls": [
+          {
+            "id": "call_89412ee945a14b779f08148525d73632",
+            "attempt_number": 1,
+            "mode": "LIVE",
+            "model_id": "Gemma-4-31B-IT",
+            "prompt_version": "nexus-investigator-v1",
+            "endpoint_host": "developer.amd.com.cn",
+            "request_timestamp": "2026-10-16T11:37:25.353Z",
+            "provider_request_id": "f9e91ea362f9458fb80d74d5e272174b",
+            "input_tokens": 2638,
+            "output_tokens": 202,
+            "latency_ms": 40212,
+            "status": "SUCCEEDED"
+          }
+        ]
+      }
+    ]
+  },
+  "policy_skip_violations": [],
+  "note": "Provider fields are copied from the response; 'unavailable' means the provider did not report them."
+}
