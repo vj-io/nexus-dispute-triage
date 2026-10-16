@@ -632,7 +632,7 @@ def main(argv=None) -> int:
     ap.add_argument("--split", choices=["dev", "heldout", "all"], required=True)
     ap.add_argument("--mode", choices=["mock", "live", "recorded"], required=True)
     ap.add_argument("--run-id", help="default eval-<split>-<mode>-<UTC yyyymmddHHMM>")
-    ap.add_argument("--label", choices=["tuning", "frozen"], default="tuning")
+    ap.add_argument("--label", choices=["tuning", "frozen", "demo"], default="tuning")
     ap.add_argument("--db", help="database URL (default: DATABASE_URL or sqlite:///nexus.db, the app's store)")
     ap.add_argument("--evidence-dir", default=str(ROOT / "evidence"))
     ap.add_argument("--env-file", help="env file to load (default: .env next to inference.py)")
