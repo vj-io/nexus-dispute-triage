@@ -12,3 +12,5 @@ docs
 evidence
 __pycache__
 .pytest_cache
+brag-output
+*.mp4
