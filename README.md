@@ -79,7 +79,7 @@ Support agents answer "I was charged twice" by comparing orders, captures, pendi
 
 - A real request succeeded: provider request id `9962d9008d6846f3a75ff858bd5e82c5`, 1,738 ms, 29 input / 6 output tokens. A second smoke run through `inference.py --smoke` also succeeded (request id `5e2e05b18740408f97758489d6fb2318`).
 - Quota unit: a daily spend cap of 1 USD-equivalent points (`x-ratelimit-limit-user-daily-usd: 1`), resetting daily at 13:30 UTC. Rate limit 20 requests per minute; 8 concurrent requests documented per key. The documentation states that points have no monetary value and that the cap rejects with 429 rather than billing.
-- **`max_tokens` limitation.** Gemma-4-31B-IT rejects every `max_tokens` value on this endpoint (400 `invalid_request_error`, output limit reported as null). NEXUS therefore sends no `max_tokens` (`AMD_SEND_MAX_TOKENS=0`). The output is still bounded by the 60 s client timeout, an 8,000-character cap on the response checked by validation, and a budget reservation of 1,024 output tokens per call. There is no provider-enforced output-token limit.
+- **`max_tokens` limitation.** Gemma-4-31B-IT rejects every `max_tokens` value on this endpoint (400 `invalid_request_error`, output limit reported as null). NEXUS therefore sends no `max_tokens` (`AMD_SEND_MAX_TOKENS=0`). The output is still bounded by the client timeout (60 s default, `AMD_TIMEOUT_S`), an 8,000-character cap on the response checked by validation, and a budget reservation of 1,024 output tokens per call. There is no provider-enforced output-token limit.
 - Without JSON mode the model wrapped its JSON in a Markdown fence; with `response_format: {"type": "json_object"}` it returned a bare object. NEXUS sends JSON mode, and validation strips a fence if one still appears.
 - Model choice: `MiniCPM5-2B` is smaller and was also listed. `Gemma-4-31B-IT` was pinned because the event's Google partner prize requires Gemma and it passed the access check. No model comparison was run.
 
@@ -239,7 +239,7 @@ uv pip install -r requirements-dev.txt                 # adds pytest
 | App workers | 1 uvicorn worker (Docker); on Vercel each serverless instance is separate |
 | Locally awaited inference calls | 2 at once per process (`asyncio.Semaphore(2)`) |
 | Attempts per case | 2, shared by schema repair, transient retry and restart recovery |
-| Per-request timeout | 60 s |
+| Per-request timeout | 60 s default (used for every evaluation run); `AMD_TIMEOUT_S` overrides it, bounded to 5–240 s. The hosted demo uses 120 s because shared-endpoint calls measured a 29 s mean and 50 s maximum in the frozen run, and several 60 s timeouts and 500s were observed on 2026-10-16 evening (they went to human review as `MODEL_UNAVAILABLE`, as designed). |
 | Retry-After | honoured up to 60 s; a longer wait sends the case to human review (`MODEL_UNAVAILABLE`) |
 | Complaint length | 1 to 2,000 characters |
 | Waiting queue | 50 queued cases; further submissions return 429 |

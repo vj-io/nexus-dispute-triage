@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1920">
+<title>NEXUS pitch deck</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&amp;family=JetBrains+Mono:wght@400;700&amp;family=Patrick+Hand&amp;display=swap">
+<style>
+/* NEXUS pitch deck: 6 slides, 1920x1080 each. Doodle look: paper + 60px grid, ink strokes, marker fills.
+   Rule: every text is ink on paper or on a pastel fill, 28px or larger. */
+:root {
+  --ink: #0a0a0a; --paper: #f0ede8; --card: #f8f6f1; --paper-2: #e9e4dc;
+  --lime: #c8ff00; --mint: #8ef0c4; --sky: #9fd8ff; --tang: #ffc078; --pink: #ff9ecf; --lav: #cdb8ff; --lemon: #fff27a;
+  --lime-s: #f1ffc0; --mint-s: #dcf9ec; --sky-s: #e2f3ff; --tang-s: #ffeed9; --pink-s: #ffe2f0; --lav-s: #eee8ff; --lemon-s: #fff9c9;
+  --disp: 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --hand: 'Patrick Hand', 'Segoe Print', 'Bradley Hand', cursive;
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --wob: 255px 14px 225px 14px / 14px 225px 14px 255px;
+  --wob2: 14px 225px 14px 255px / 255px 14px 225px 14px;
+}
+* { box-sizing: border-box; }
+html { background: #cfc9bf; }
+body { margin: 0; color: var(--ink); font: 500 32px/1.3 var(--disp); -webkit-font-smoothing: antialiased; }
+.deck { transform-origin: top left; }
+.slide {
+  position: relative; width: 1920px; height: 1080px; overflow: hidden; margin: 0 auto 40px;
+  background-color: var(--paper);
+  background-image: linear-gradient(rgba(10,10,10,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(10,10,10,.07) 1px, transparent 1px);
+  background-size: 60px 60px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.25);
+}
+@page { size: 1920px 1080px; margin: 0; }
+@media print {
+  html, body { background: none; }
+  .slide { margin: 0; box-shadow: none; break-after: page; page-break-after: always; }
+  .slide:last-child { break-after: auto; page-break-after: auto; }
+}
+
+/* ---- chrome ---- */
+.top { position: absolute; left: 80px; right: 80px; top: 38px; display: flex; align-items: center; justify-content: space-between; }
+.brand { display: flex; align-items: center; gap: 16px; font: 800 48px/1 var(--disp); letter-spacing: -.04em; }
+.brand img { width: 64px; height: 64px; transform: rotate(-3deg); }
+.pg { font: 400 34px/1 var(--hand); padding: 8px 20px 10px; border: 3.5px solid var(--ink); border-radius: var(--wob); background: var(--card); }
+.kicker { position: absolute; left: 400px; top: 50px; padding: 13px 22px 12px; border: 3.5px solid var(--ink); border-radius: var(--wob2); background: var(--lemon); font: 700 28px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+h1, h2, h3, p { margin: 0; }
+.h2 { font: 800 72px/1.02 var(--disp); letter-spacing: -.035em; }
+.hl { background: linear-gradient(transparent 55%, var(--lime) 55%, var(--lime) 93%, transparent 93%); padding: 0 .08em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.hl.mint { background: linear-gradient(transparent 55%, var(--mint) 55%, var(--mint) 93%, transparent 93%); }
+.hl.pink { background: linear-gradient(transparent 55%, var(--pink) 55%, var(--pink) 93%, transparent 93%); }
+.hl.tang { background: linear-gradient(transparent 55%, var(--tang) 55%, var(--tang) 93%, transparent 93%); }
+.hand { font-family: var(--hand); font-weight: 400; }
+.mono { font-family: var(--mono); }
+
+/* ---- stickers, boxes, tape ---- */
+.box { position: relative; border: 4px solid var(--ink); border-radius: var(--wob); box-shadow: 7px 7px 0 var(--ink); background: var(--card); }
+.box.r2 { border-radius: var(--wob2); }
+.f-lime { background: var(--lime); } .f-mint { background: var(--mint); } .f-sky { background: var(--sky); }
+.f-tang { background: var(--tang); } .f-pink { background: var(--pink); } .f-lav { background: var(--lav); } .f-lemon { background: var(--lemon); }
+.f-lime-s { background: var(--lime-s); } .f-mint-s { background: var(--mint-s); } .f-sky-s { background: var(--sky-s); }
+.f-tang-s { background: var(--tang-s); } .f-pink-s { background: var(--pink-s); } .f-lav-s { background: var(--lav-s); } .f-paper2 { background: var(--paper-2); }
+.tape { position: absolute; width: 150px; height: 44px; opacity: .85; border: 2px solid rgba(10,10,10,.25); }
+.tape.t-l { left: -50px; top: -8px; transform: rotate(-35deg); }
+.tape.t-r { right: -50px; top: -8px; transform: rotate(35deg); }
+.runid { display: inline-block; font: 700 28px/1 var(--mono); padding: 11px 18px; border: 3.5px solid var(--ink); border-radius: var(--wob2); background: var(--lime-s); }
+.runid.dash { border-style: dashed; background: var(--mint-s); }
+svg.ink path, svg.ink line, svg.ink polyline, svg.ink circle, svg.ink rect { stroke: var(--ink); stroke-linecap: round; stroke-linejoin: round; }
+
+/* =================== slide 1 =================== */
+.s1 .mega { position: absolute; left: 70px; top: 140px; font: 800 218px/.95 var(--disp); letter-spacing: -.055em; white-space: nowrap; }
+.s1 .sub { position: absolute; left: 80px; top: 626px; width: 1120px; font: 400 58px/1.12 var(--hand); }
+.s1 .chips { position: absolute; left: 80px; top: 824px; display: flex; align-items: center; gap: 22px; }
+.s1 .chip { font: 400 46px/1 var(--hand); padding: 14px 28px 16px; border: 4px solid var(--ink); border-radius: var(--wob); box-shadow: 5px 5px 0 var(--ink); }
+.s1 .chips .arr { width: 96px; height: 40px; }
+.s1 .chip.policy { font: 800 44px/1 var(--disp); letter-spacing: -.02em; }
+.s1 .stamp { position: absolute; right: 64px; top: 744px; width: 580px; padding: 26px 34px 30px; transform: rotate(-3deg); font: 800 56px/1.04 var(--disp); letter-spacing: -.03em; }
+.s1 .doodle { position: absolute; right: 90px; top: 392px; width: 540px; height: 338px; }
+
+/* =================== slide 2 =================== */
+.s2 .h2 { position: absolute; left: 80px; top: 128px; width: 960px; }
+.s2 .who { position: absolute; left: 80px; top: 340px; width: 960px; display: flex; gap: 28px; }
+.s2 .who .box { flex: 1; padding: 20px 26px 22px; }
+.s2 .who b { display: block; font: 800 40px/1.05 var(--disp); letter-spacing: -.02em; margin-top: 8px; }
+.s2 .lab { font: 700 28px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.s2 .flow { position: absolute; left: 80px; top: 570px; width: 960px; }
+.s2 .in { width: 300px; padding: 20px 22px 24px; font: 400 38px/1.1 var(--hand); position: absolute; left: 0; top: 110px; }
+.s2 .out { position: absolute; left: 470px; width: 490px; padding: 14px 22px 16px; font: 800 36px/1.06 var(--disp); letter-spacing: -.02em; }
+.s2 .out small { display: block; font: 400 32px/1.1 var(--hand); letter-spacing: 0; margin-top: 4px; }
+.s2 .nx { position: absolute; left: 345px; top: 148px; width: 96px; height: 96px; }
+.s2 .shotwrap { position: absolute; right: 80px; top: 124px; width: 722px; padding: 12px; background: #fff; }
+.s2 .shotwrap img { display: block; width: 100%; height: auto; }
+.s2 .cap { position: absolute; right: 80px; top: 992px; width: 722px; font: 400 32px/1.1 var(--hand); text-align: center; }
+
+/* =================== slide 3 =================== */
+.s3 .h2 { position: absolute; left: 80px; top: 124px; }
+.s3 .runtag { position: absolute; right: 80px; top: 146px; background: var(--sky-s); }
+.s3 .frames { position: absolute; left: 80px; right: 80px; top: 232px; display: flex; gap: 100px; }
+.s3 .fr { width: 520px; }
+.s3 .shot { padding: 10px; background: #fff; }
+.s3 .shot img { display: block; width: 100%; height: auto; }
+.s3 .fc { margin-top: 20px; font: 400 36px/1.1 var(--hand); }
+.s3 .fc b { font: 800 34px/1.1 var(--disp); letter-spacing: -.02em; }
+.s3 .foot { position: absolute; left: 80px; bottom: 30px; right: 80px; display: flex; gap: 22px; align-items: center; font: 400 34px/1.1 var(--hand); }
+
+/* =================== slide 4 =================== */
+.s4 .h2 { position: absolute; left: 80px; top: 124px; font-size: 64px; white-space: nowrap; }
+.s4 .meta { position: absolute; left: 80px; top: 214px; display: flex; gap: 18px; }
+.s4 .meta .runid { background: var(--sky-s); }
+.s4 .dia { position: absolute; left: 80px; top: 316px; width: 1760px; height: 420px; }
+.s4 .n { position: absolute; padding: 12px 18px 14px; font: 800 34px/1.05 var(--disp); letter-spacing: -.02em; }
+.s4 .n small { display: block; font: 400 32px/1.08 var(--hand); letter-spacing: 0; margin-top: 4px; }
+.s4 .lbl { position: absolute; font: 400 34px/1 var(--hand); }
+.s4 .arrows { position: absolute; left: 0; top: 0; width: 1760px; height: 420px; overflow: visible; }
+.s4 .arrows path { fill: none; stroke: var(--ink); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+.s4 .card { position: absolute; top: 758px; height: 272px; padding: 18px 28px 20px; }
+.s4 .card h3 { font: 800 36px/1 var(--disp); letter-spacing: -.02em; margin-bottom: 12px; }
+.s4 .card .mono { font-size: 28px; line-height: 1.36; font-weight: 700; }
+.s4 .card p { font: 400 38px/1.16 var(--hand); }
+
+/* =================== slide 5 =================== */
+.s5 .h2 { position: absolute; left: 80px; top: 124px; }
+.s5 .label { position: absolute; left: 80px; top: 222px; font: 400 40px/1.1 var(--hand); }
+.s5 table { position: absolute; left: 80px; top: 296px; width: 1110px; border-collapse: separate; border-spacing: 0; border: 4px solid var(--ink); border-radius: var(--wob); background: var(--card); box-shadow: 7px 7px 0 var(--ink); overflow: hidden; }
+.s5 th, .s5 td { padding: 10px 18px; text-align: center; border-bottom: 3px solid var(--ink); border-right: 3px solid var(--ink); }
+.s5 th:last-child, .s5 td:last-child { border-right: 0; }
+.s5 tr:last-child td { border-bottom: 0; }
+.s5 th { font: 800 34px/1.05 var(--disp); letter-spacing: -.02em; height: 116px; }
+.s5 th small { display: block; font: 400 32px/1.05 var(--hand); letter-spacing: 0; margin-top: 4px; }
+.s5 td:first-child, .s5 th:first-child { text-align: left; width: 480px; }
+.s5 td:first-child { font: 700 34px/1.1 var(--disp); letter-spacing: -.015em; }
+.s5 td { height: 92px; font: 800 48px/1 var(--mono); letter-spacing: -.04em; }
+.s5 td.tie { background: var(--paper-2); }
+.s5 td.win { background: var(--mint); }
+.s5 td.a-bad { background: var(--pink-s); }
+.s5 td small { display: block; font: 400 28px/1 var(--hand); letter-spacing: 0; margin-top: 4px; }
+.s5 .legend { position: absolute; left: 80px; top: 946px; display: flex; gap: 22px; align-items: center; font: 400 34px/1 var(--hand); }
+.s5 .sw { display: inline-block; width: 34px; height: 34px; border: 3px solid var(--ink); border-radius: 6px; vertical-align: -6px; margin-right: 10px; }
+.s5 .miss { position: absolute; left: 1250px; width: 590px; padding: 20px 26px 24px; font: 400 36px/1.13 var(--hand); }
+.s5 .miss b { display: block; font: 800 36px/1.05 var(--disp); letter-spacing: -.02em; margin-bottom: 8px; }
+.s5 .runline { position: absolute; right: 80px; top: 930px; white-space: nowrap; }
+
+/* =================== slide 6 =================== */
+.s6 .h2 { position: absolute; left: 80px; top: 124px; }
+.s6 .col { position: absolute; top: 236px; width: 850px; height: 590px; padding: 28px 34px 30px; }
+.s6 .col h3 { font: 800 56px/1 var(--disp); letter-spacing: -.03em; margin-bottom: 26px; }
+.s6 ul { list-style: none; margin: 0; padding: 0; }
+.s6 li { position: relative; padding-left: 56px; margin: 0 0 24px; font: 400 44px/1.1 var(--hand); }
+.s6 li::before { content: ""; position: absolute; left: 4px; top: 6px; width: 32px; height: 32px; border: 3.5px solid var(--ink); border-radius: var(--wob); background: var(--paper); }
+.s6 li.no::before { background: var(--pink); }
+.s6 li.go::before { background: var(--lime); }
+.s6 li small { display: block; font: 400 32px/1.1 var(--hand); margin-top: 6px; }
+.s6 li b { font: 700 40px/1.1 var(--disp); letter-spacing: -.02em; }
+.s6 .links { position: absolute; left: 80px; right: 80px; top: 868px; height: 156px; padding: 18px 36px 20px; display: flex; flex-direction: column; justify-content: center; gap: 12px; }
+.s6 .links div { font: 700 38px/1.1 var(--mono); }
+.s6 .links span { font: 400 40px/1.1 var(--hand); display: inline-block; width: 190px; }
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- ============================================================ 1 PROBLEM -->
+<section class="slide s1" id="slide-1">
+  <header class="top"><div class="brand"><img src="favicon.svg" alt=""><span>NEXUS</span></div><span class="pg">1 / 6</span></header>
+  <p class="kicker">The problem</p>
+  <h1 class="mega">I was charged<br><span class="hl">twice.</span></h1>
+  <p class="sub">A support agent has to compare orders, captures, holds and refunds against policy.</p>
+  <div class="chips">
+    <span class="chip f-sky">orders</span><span class="chip f-mint">captures</span><span class="chip f-tang">holds</span><span class="chip f-lav">refunds</span>
+    <svg class="arr ink" viewBox="0 0 96 40" aria-hidden="true"><path d="M4 21 Q30 14 60 20 T88 20" fill="none" stroke-width="5"/><path d="M70 6 L90 20 L70 35" fill="none" stroke-width="5"/></svg>
+    <span class="chip policy f-lime">policy</span>
+  </div>
+  <svg class="doodle ink" viewBox="0 0 640 400" aria-hidden="true">
+    <!-- two identical receipts and a question mark -->
+    <g transform="rotate(-5 170 200)">
+      <path d="M40 30 L300 26 L304 350 L276 334 L248 352 L220 334 L192 352 L164 334 L136 352 L108 334 L82 352 L44 330 Z" fill="#9fd8ff" stroke-width="5"/>
+      <path d="M78 90 L240 88 M78 140 L206 138 M78 190 L240 188" fill="none" stroke-width="6"/>
+      <rect x="170" y="230" width="90" height="46" rx="6" fill="#c8ff00" stroke-width="5"/>
+    </g>
+    <g transform="rotate(6 440 210)">
+      <path d="M330 52 L590 56 L586 360 L558 344 L530 362 L502 344 L474 362 L446 344 L418 362 L390 344 L364 362 L326 340 Z" fill="#ffc078" stroke-width="5"/>
+      <path d="M366 112 L526 110 M366 162 L492 160 M366 212 L526 210" fill="none" stroke-width="6"/>
+      <rect x="456" y="252" width="90" height="46" rx="6" fill="#c8ff00" stroke-width="5"/>
+    </g>
+    <circle cx="322" cy="64" r="52" fill="#ff9ecf" stroke-width="5"/>
+    <path d="M300 48 Q300 28 322 28 Q346 28 346 50 Q346 62 330 70 Q322 76 322 86" fill="none" stroke-width="9"/>
+    <circle cx="322" cy="102" r="4" fill="#0a0a0a" stroke-width="5"/>
+  </svg>
+  <div class="box stamp f-pink"><span class="tape t-l f-lemon"></span>A wrong answer costs money twice.</div>
+</section>
+
+<!-- ============================================================ 2 USER + PRODUCT -->
+<section class="slide s2" id="slide-2">
+  <header class="top"><div class="brand"><img src="favicon.svg" alt=""><span>NEXUS</span></div><span class="pg">2 / 6</span></header>
+  <p class="kicker">User and product</p>
+  <h2 class="h2">A cited triage and a safe reply, <span class="hl">for the agent</span></h2>
+  <div class="who">
+    <div class="box f-lemon"><span class="lab">Primary</span><b>E-commerce support agent</b></div>
+    <div class="box f-sky"><span class="lab">Secondary</span><b>Support lead</b></div>
+  </div>
+  <div class="flow">
+    <div class="box in f-paper2" style="background:var(--card)">complaint + authorized payment records</div>
+    <svg class="nx ink" viewBox="0 0 96 96" aria-hidden="true"><path d="M6 48 Q40 40 82 48" fill="none" stroke-width="6"/><path d="M62 26 L86 48 L62 70" fill="none" stroke-width="6"/></svg>
+    <div class="box out f-sky" style="top:0">Cited triage<small>every cited record checked</small></div>
+    <div class="box out f-tang" style="top:134px">Reply draft<small>written by code, never by the model</small></div>
+    <div class="box out f-mint" style="top:268px">Refund recommendation<small>or a human-review case</small></div>
+  </div>
+  <div class="box shotwrap"><span class="tape t-l f-mint"></span><img src="screenshots/case-screen.png" alt="NEXUS case screen showing REFUND RECOMMENDED, amounts and the code-rendered reply, badges Run mode LIVE and Inference LIVE AMD"></div>
+  <p class="cap">Real case screen, synthetic data: LIVE AMD</p>
+</section>
+
+<!-- ============================================================ 3 DEMO FRAMES -->
+<section class="slide s3" id="slide-3">
+  <header class="top"><div class="brand"><img src="favicon.svg" alt=""><span>NEXUS</span></div><span class="pg">3 / 6</span></header>
+  <p class="kicker">Demo frames</p>
+  <h2 class="h2">Real screens from <span class="hl">real runs</span></h2>
+  <div class="frames">
+    <figure class="fr" style="margin:0">
+      <div class="box shot"><span class="tape t-l f-sky"></span><img src="screenshots/frame-case.png" alt="Case result: NO REFUND RECOMMENDED stamp with amounts, authorization hold explained"></div>
+      <figcaption class="fc"><b>Case result.</b> A hold is not a charge: stamped no refund.</figcaption>
+    </figure>
+    <figure class="fr" style="margin:0">
+      <div class="box shot r2"><span class="tape t-r f-pink"></span><img src="screenshots/frame-queue.png" alt="Review queue listing policy-flagged cases awaiting an operator"></div>
+      <figcaption class="fc"><b>Review queue.</b> Policy-flagged cases wait for a person.</figcaption>
+    </figure>
+    <figure class="fr" style="margin:0">
+      <div class="box shot"><span class="tape t-r f-tang"></span><img src="screenshots/frame-insights.png" alt="Insights for the held-out live run: 12 cases by final disposition"></div>
+      <figcaption class="fc"><b>Insights.</b> The 12 held-out cases by disposition.</figcaption>
+    </figure>
+  </div>
+  <span class="runid runtag">run eval-heldout-live-202610161132</span>
+</section>
+
+<!-- ============================================================ 4 AMD EVIDENCE -->
+<section class="slide s4" id="slide-4">
+  <header class="top"><div class="brand"><img src="favicon.svg" alt=""><span>NEXUS</span></div><span class="pg">4 / 6</span></header>
+  <p class="kicker">AMD evidence</p>
+  <h2 class="h2">Gemma-4-31B-IT on AMD GPUs <span class="hl">reads the complaint</span></h2>
+  <div class="meta"><span class="runid">AMD Token Factory</span><span class="runid">developer.amd.com.cn</span><span class="runid">prompt nexus-investigator-v1</span></div>
+
+  <div class="dia">
+    <svg class="arrows" viewBox="0 0 1760 420" aria-hidden="true">
+      <path d="M224 208 Q244 202 266 208"/><path d="M246 190 L268 208 L246 226"/>
+      <!-- fork: policy -> top lane (flag) and bottom lane (no flag) -->
+      <path d="M536 190 Q568 92 604 88"/><path d="M584 70 L606 88 L584 106"/>
+      <path d="M536 232 Q568 324 604 328"/><path d="M584 310 L606 328 L584 346"/>
+      <!-- top lane -->
+      <path d="M936 88 Q960 82 998 88"/><path d="M980 70 L1000 88 L980 106"/>
+      <path d="M1330 88 Q1350 82 1388 88"/><path d="M1370 70 L1390 88 L1370 106"/>
+      <!-- bottom lane -->
+      <path d="M936 328 Q960 322 998 328"/><path d="M980 310 L1000 328 L980 346"/>
+      <path d="M1330 328 Q1350 322 1388 328"/><path d="M1370 310 L1390 328 L1370 346"/>
+    </svg>
+    <div class="box n" style="left:0;top:132px;width:222px;height:156px">Snapshot<small>hashed evidence</small></div>
+    <div class="box n f-lav" style="left:272px;top:122px;width:262px;height:176px">Policy rules<small>code decides eligibility</small></div>
+    <span class="lbl" style="left:392px;top:60px">flag found</span>
+    <span class="lbl" style="left:420px;top:318px">no flag</span>
+
+    <div class="box n f-pink" style="left:610px;top:8px;width:330px;height:160px">Mandatory flag<small>e.g. open chargeback</small></div>
+    <div class="box n f-sky" style="left:1004px;top:8px;width:330px;height:160px">0 AMD calls<small>SKIPPED_POLICY<br>4 of 12 held-out cases</small></div>
+    <div class="box n f-paper2" style="left:1392px;top:8px;width:340px;height:160px;background:var(--card)">Human review queue<small>a person decides</small></div>
+
+    <div class="box n f-lime" style="left:610px;top:248px;width:330px;height:160px">AMD interprets<small>Gemma-4-31B-IT reads the complaint</small></div>
+    <div class="box n f-lav-s" style="left:1004px;top:248px;width:330px;height:160px">Validation<small>cited IDs exist, amount = policy</small></div>
+    <div class="box n f-tang" style="left:1392px;top:248px;width:340px;height:160px">Code renders<small>reply, clarification or review</small></div>
+  </div>
+
+  <div class="box card f-sky-s" style="left:80px;width:880px"><h3>Real request, held-out case s02</h3>
+    <div class="mono">id ef5339775864420594e723411612a8f5<br>2026-10-16T11:34:07.617Z, 24,992 ms<br>2,797 tokens in / 236 out</div>
+    <span class="runid" style="margin-top:10px;font-size:28px">run eval-heldout-live-202610161132</span>
+  </div>
+  <div class="box card f-tang-s r2" style="left:1000px;width:840px"><h3>Honest limit</h3>
+    <p>Gemma-4-31B-IT rejects max_tokens on this endpoint. Output is bounded by a 60 s timeout, schema validation and a budget reservation.</p>
+  </div>
+</section>
+
+<!-- ============================================================ 5 COMPARISON -->
+<section class="slide s5" id="slide-5">
+  <header class="top"><div class="brand"><img src="favicon.svg" alt=""><span>NEXUS</span></div><span class="pg">5 / 6</span></header>
+  <p class="kicker">Comparison result</p>
+  <h2 class="h2">NEXUS <span class="hl">12/12</span> vs rules-only 10/12 on disposition</h2>
+  <p class="label">12 synthetic held-out cases: descriptive, not a general accuracy claim</p>
+  <table>
+    <thead><tr><th>Metric</th><th>A<small>rules only, no inference</small></th><th>B<small>NEXUS + AMD</small></th></tr></thead>
+    <tbody>
+      <tr><td>Disposition correct</td><td class="a-bad">10/12</td><td class="win">12/12</td></tr>
+      <tr><td>Reply rubric</td><td class="a-bad">19/21</td><td class="win">21/21</td></tr>
+      <tr><td>Critical failures</td><td class="tie">0/12</td><td class="tie">0/12</td></tr>
+      <tr><td>Mandatory-review recall</td><td class="tie">4/4</td><td class="tie">4/4</td></tr>
+      <tr><td>Model calls on the 4 policy-skipped cases</td><td class="tie">0</td><td class="tie">0</td></tr>
+    </tbody>
+  </table>
+  <p class="legend"><span><i class="sw" style="background:var(--mint)"></i>B better</span><span><i class="sw" style="background:var(--paper-2)"></i>tie</span><span><i class="sw" style="background:var(--pink-s)"></i>A missed</span></p>
+
+  <div class="box miss f-pink-s" style="top:296px"><span class="tape t-r f-pink"></span><b>A missed an injection</b>A double-charge complaint said "refund $500". A asked for clarification. B kept the policy amount, GBP 64.50.</div>
+  <div class="box miss f-tang-s r2" style="top:604px"><span class="tape t-r f-tang"></span><b>A missed an off-topic case</b>A login complaint got "no refund" from A. B sent it to a person.</div>
+  <div class="runline"><span class="runid">run eval-heldout-live-202610161132</span></div>
+</section>
+
+<!-- ============================================================ 6 LIMITS + NEXT -->
+<section class="slide s6" id="slide-6">
+  <header class="top"><div class="brand"><img src="favicon.svg" alt=""><span>NEXUS</span></div><span class="pg">6 / 6</span></header>
+  <p class="kicker">Limitations and next steps</p>
+  <h2 class="h2">What this does not show <span class="hl pink">yet</span></h2>
+  <div class="box col f-pink-s" style="left:80px"><span class="tape t-l f-pink"></span>
+    <h3>Limits</h3>
+    <ul>
+      <li class="no">Synthetic data, fictional policy</li>
+      <li class="no">12 held-out cases, descriptive only</li>
+      <li class="no">No payment or email is ever executed</li>
+      <li class="no">Shared Token Factory: mean 29.4 s per call (run eval-heldout-live-202610161132)</li>
+      <li class="no">Operator ID is an audit label, not a login</li>
+    </ul>
+  </div>
+  <div class="box col f-mint-s r2" style="left:990px"><span class="tape t-r f-mint"></span>
+    <h3>Next</h3>
+    <ul>
+      <li class="go">Real policy import<small>replace the fictional policy</small></li>
+      <li class="go">More cases<small>beyond the 12 held-out cases</small></li>
+      <li class="go">Timing study with agents<small>agent time per complaint is not measured yet</small></li>
+      <li class="go">Evolus and partner integrations<small>not claimed in this submission</small></li>
+    </ul>
+  </div>
+  <div class="box links f-lime"><div><span>Live demo</span>https://nexus-dispute-triage.vercel.app</div><div><span>Code</span>github.com/vj-io/nexus-dispute-triage</div></div>
+</section>
+
+</div>
+<script>
+// Screen only: fit the 1920 px deck into a narrower window. Print and the PDF stay at 1:1.
+(function () {
+  var d = document.getElementById('deck');
+  function fit() { var s = Math.min(1, innerWidth / 1920); d.style.zoom = s; }
+  window.addEventListener('resize', fit); window.addEventListener('beforeprint', function () { d.style.zoom = 1; });
+  window.addEventListener('afterprint', fit); fit();
+})();
+</script>
+</body>
+</html>

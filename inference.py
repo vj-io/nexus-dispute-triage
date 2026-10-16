@@ -22,7 +22,7 @@ from pydantic import BaseModel
 from models import Disposition, ExplanationCode, RunMode, canonical_hash
 
 PROMPT_VERSION = "nexus-investigator-v1"
-TIMEOUT_S = 60.0
+TIMEOUT_S = 60.0  # PRD default; AMD_TIMEOUT_S overrides (bounded 5..240 s), e.g. 120 for the slower shared endpoint
 MOCK_MODEL_ID = "mock-baseline"
 _ROOT = Path(__file__).resolve().parent
 _transport = None  # tests inject an httpx transport here; None = real network
@@ -281,8 +281,9 @@ async def _send(method: str, path: str, body: dict | None = None, *, need_model:
         raise ProviderUnavailable("missing configuration: " + ", ".join(missing))
     t0 = time.perf_counter()
     try:
-        async with asyncio.timeout(TIMEOUT_S):
-            async with httpx.AsyncClient(transport=_transport, timeout=TIMEOUT_S) as client:
+        timeout_s = _timeout_s()
+        async with asyncio.timeout(timeout_s):
+            async with httpx.AsyncClient(transport=_transport, timeout=timeout_s) as client:
                 r = await client.request(method, base.rstrip("/") + path, json=body,
                                          headers={"Authorization": f"Bearer {key}"})
     except (httpx.TimeoutException, TimeoutError):
@@ -297,6 +298,14 @@ async def _send(method: str, path: str, body: dict | None = None, *, need_model:
     if not 200 <= r.status_code < 300:
         raise ProviderUnavailable(f"provider returned {r.status_code}{_error_code(r)}")
     return r, latency_ms
+
+
+def _timeout_s() -> float:
+    try:
+        v = float(_env("AMD_TIMEOUT_S") or TIMEOUT_S)
+    except ValueError:
+        return TIMEOUT_S
+    return min(240.0, max(5.0, v)) if math.isfinite(v) else TIMEOUT_S
 
 
 def _cost(v) -> float | None:

@@ -485,3 +485,16 @@ def test_smoke_runs_against_mock_transport(serve, capsys):
                    "provider request id: req-smoke", "endpoint host: api.example.test", '{"ok":true}'):
         assert needle in out.out
     assert KEY not in out.out + out.err
+
+
+def test_timeout_env_override_is_bounded(monkeypatch):
+    monkeypatch.setenv("AMD_TIMEOUT_S", "120")
+    assert inference._timeout_s() == 120
+    monkeypatch.setenv("AMD_TIMEOUT_S", "9999")
+    assert inference._timeout_s() == 240
+    monkeypatch.setenv("AMD_TIMEOUT_S", "nan")
+    assert inference._timeout_s() == inference.TIMEOUT_S
+    monkeypatch.setenv("AMD_TIMEOUT_S", "abc")
+    assert inference._timeout_s() == inference.TIMEOUT_S
+    monkeypatch.delenv("AMD_TIMEOUT_S")
+    assert inference._timeout_s() == 60
