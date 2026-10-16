@@ -322,6 +322,23 @@ def test_4xx_is_provider_unavailable(serve, status):
     assert str(status) in str(ei.value) and "invalid_api_key" in str(ei.value)
 
 
+@pytest.mark.parametrize("key", [KEY, "sk/ab+cd==/xyz"])  # the second has characters the code filter would drop
+def test_provider_echoed_key_is_redacted_in_error_code_and_request_id(serve, monkeypatch, key):
+    monkeypatch.setenv("AMD_API_KEY", key)
+    serve(lambda r: httpx.Response(401, json={"error": {"code": key}}))
+    with pytest.raises(ProviderUnavailable) as ei:
+        run(call(RunMode.LIVE, make_req()))
+    assert key not in str(ei.value) and "redacted" in str(ei.value) and len(str(ei.value)) < 64 + 40
+    for headers, body in (({"x-request-id": key}, ok_body()), ({}, ok_body(id=key)),
+                          ({"x-request-id": "r" * 40 + key}, ok_body())):
+        serve(lambda r, h=headers, b=body: httpx.Response(200, json=b, headers=h))
+        resp = run(call(RunMode.LIVE, make_req()))
+        assert key not in repr(resp) and key[:8] not in resp.provider_request_id
+        assert "[red" in resp.provider_request_id and len(resp.provider_request_id) <= 64
+    serve(lambda r: httpx.Response(200, json=ok_body(), headers={"x-request-id": "q" * 300}))
+    assert len(run(call(RunMode.LIVE, make_req())).provider_request_id) == 64
+
+
 def test_connection_error_and_malformed_response(serve):
     def refuse(request):
         raise httpx.ConnectError("refused", request=request)

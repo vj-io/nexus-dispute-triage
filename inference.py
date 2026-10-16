@@ -254,6 +254,13 @@ def _retry_after(r: httpx.Response) -> float | None:
     return v if math.isfinite(v) and v >= 0 else None
 
 
+def _scrub(value) -> str:
+    """Provider-derived text that is stored or returned (error code, request id): the API key is replaced
+    with [redacted] and the result is cut to 64 characters, so a hostile provider cannot echo the key back."""
+    key, text = _env("AMD_API_KEY"), str(value)
+    return (text.replace(key, "[redacted]") if key else text)[:64]
+
+
 def _error_code(r: httpx.Response) -> str:
     """Short provider error code for diagnostics. Never the message: it could echo credentials."""
     try:
@@ -261,7 +268,8 @@ def _error_code(r: httpx.Response) -> str:
         code = err.get("code") or err.get("type")
     except (ValueError, KeyError, TypeError, AttributeError):
         return ""
-    return f" ({re.sub(r'[^A-Za-z0-9_.-]', '', str(code))[:64]})" if code else ""
+    # scrub the raw value first: a key with characters the filter drops would no longer match afterwards
+    return f" ({re.sub(r'[^A-Za-z0-9_.\[\]-]', '', _scrub(code))})" if code else ""
 
 
 async def _send(method: str, path: str, body: dict | None = None, *, need_model: bool = True):
@@ -326,7 +334,7 @@ async def _live(req: InferenceRequest) -> InferenceResponse:
     return InferenceResponse(
         content=content, model_id=body["model"], mode=RunMode.LIVE, latency_ms=latency_ms,
         input_tokens=_tokens(usage.get("prompt_tokens")), output_tokens=_tokens(usage.get("completion_tokens")),
-        provider_request_id=rid[:200] if rid else None, endpoint_host=_host(_env("AMD_BASE_URL")),
+        provider_request_id=_scrub(rid) if rid else None, endpoint_host=_host(_env("AMD_BASE_URL")),
         request_timestamp=ts, cost_usd=_cost(usage.get("cost")))
 
 

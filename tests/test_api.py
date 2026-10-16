@@ -41,10 +41,10 @@ def env(monkeypatch, tmp_path):
 def make_client(monkeypatch):
     """Factory: set env, build a fresh app, run its lifespan. Each client has its own rate-limit windows."""
     with ExitStack() as stack:
-        def make(**env_vars):
+        def make(peer=None, **env_vars):  # peer: the (host, port) the app sees as the socket client
             for name, value in env_vars.items():  # None removes the variable
                 monkeypatch.delenv(name, raising=False) if value is None else monkeypatch.setenv(name, value)
-            return stack.enter_context(TestClient(app_mod.create_app()))
+            return stack.enter_context(TestClient(app_mod.create_app(), **({"client": peer} if peer else {})))
         yield make
 
 
@@ -97,6 +97,51 @@ def test_hosted_without_a_token_fails_closed(make_client):
     assert hosted.get("/health").status_code == 401 and hosted.get("/health", headers=AUTH).status_code == 200
 
 
+def test_unauthenticated_requests_never_reach_store_init_or_recovery(monkeypatch):
+    monkeypatch.setenv("ACCESS_TOKEN", TOKEN)
+    calls, init, recover = [], Store.init, workflow.recover
+
+    def spy_init(self):
+        calls.append("init")
+        init(self)
+
+    async def spy_recover(*a, **k):
+        calls.append("recover")
+        return await recover(*a, **k)
+    monkeypatch.setattr(Store, "init", spy_init)
+    monkeypatch.setattr(workflow, "recover", spy_recover)
+    c = TestClient(app_mod.create_app())  # lifespan not run: nothing is initialised until a request needs it
+    for headers in (None, {"Authorization": "Bearer wrong"}):
+        assert c.get("/health", headers=headers).status_code == 401
+        assert c.post("/cases", json={}, headers=headers).status_code == 401
+    while (r := c.get("/health")).status_code != 429:  # rate-limited requests do not initialise either
+        assert r.status_code == 401
+    assert calls == []
+    fresh = TestClient(app_mod.create_app())  # the first app's rate limiter is spent
+    assert fresh.get("/health", headers=AUTH).status_code == 200
+    assert calls == ["init", "recover"]  # lazy init still happens on the first authorised request
+
+
+def test_live_without_a_token_serves_the_api_to_loopback_clients_only(make_client):
+    live = dict(MODE="live", AMD_API_KEY="k-test", AMD_BASE_URL="https://api.example.test/v1", AMD_MODEL="m")
+    remote = make_client(**live)  # the test client's peer is "testclient", not an address: not loopback
+    for method, path in [("GET", "/health"), ("GET", "/customers"), ("GET", "/budget"), ("POST", "/cases"), ("GET", "/nope")]:
+        r = remote.request(method, path, json={} if method == "POST" else None)
+        assert r.status_code == 503 and r.json()["error"] == "auth_not_configured", (method, path)
+    assert remote.get("/health", headers={"X-Forwarded-For": "127.0.0.1"}).status_code == 503  # forwarded headers are not trusted
+    assert remote.get("/").status_code == 200 and remote.get("/static/app.js").status_code == 200
+    for host in ("10.0.0.5", "172.17.0.1", "2001:db8::1"):
+        assert make_client((host, 50000), **live).get("/health").status_code == 503, host
+    for host in ("127.0.0.1", "127.1.2.3", "::1", "::ffff:127.0.0.1"):
+        local = make_client((host, 50000), **live)
+        assert local.get("/health").status_code == 200, host
+        assert local.get("/health", headers={"X-Forwarded-For": "8.8.8.8"}).status_code == 200
+    with_token = make_client(("172.17.0.1", 50000), ACCESS_TOKEN=TOKEN, **live)
+    assert with_token.get("/health", headers=AUTH).status_code == 200
+    mock = make_client(("172.17.0.1", 50000), MODE="mock", ACCESS_TOKEN=None)  # only live mode is gated
+    assert mock.get("/health").status_code == 200
+
+
 def test_docs_and_openapi_are_off_when_hosted(make_client, monkeypatch):
     c = make_client(ACCESS_TOKEN=TOKEN)
     for path in ("/docs", "/redoc", "/openapi.json"):
@@ -119,6 +164,13 @@ def test_security_headers_and_csp_are_on_every_response_and_api_is_never_cached(
         assert r.headers["permissions-policy"] == "camera=(), microphone=(), geolocation=()"
         if path not in ("/", "/static/app.js", "/static/missing.css"):
             assert r.headers["cache-control"] == "no-store", path
+
+
+def test_vercel_json_serves_the_same_security_headers_as_the_app():
+    config = json.loads((app_mod.ROOT / "vercel.json").read_text(encoding="utf-8"))
+    (block,) = [h for h in config["headers"] if h["source"] == "/(.*)"]
+    assert {h["key"]: h["value"] for h in block["headers"]} == app_mod.SECURITY_HEADERS
+    assert app_mod.SECURITY_HEADERS["Content-Security-Policy"] == CSP
 
 
 def test_bodies_over_16kb_are_rejected_with_413(client):
@@ -196,8 +248,8 @@ def test_ids_with_nul_or_junk_are_a_plain_404(client):
 
 
 def test_health_never_reveals_the_key(make_client):
-    c = make_client(MODE="live", AMD_API_KEY="sk-live-SECRET-0123456789", AMD_BASE_URL="https://api.example.test/v1/secret-path",
-                    AMD_MODEL="some-model")
+    c = make_client(("127.0.0.1", 50000), MODE="live", AMD_API_KEY="sk-live-SECRET-0123456789",
+                    AMD_BASE_URL="https://api.example.test/v1/secret-path", AMD_MODEL="some-model")
     r = c.get("/health")
     body = r.json()
     assert body["inference"] == {"mode": "live", "model_id": "some-model", "endpoint_host": "api.example.test", "key_configured": True}

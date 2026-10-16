@@ -2,6 +2,7 @@
 import ast
 import copy
 import json
+import time
 from decimal import Decimal
 from pathlib import Path
 
@@ -333,3 +334,18 @@ def test_extraction_handles_non_text_and_huge_input():
     assert extract_identifiers(None) == {"last_four": [], "amounts": [], "dates": []}
     huge = ("$" + "9" * 3000 + " ending 1234 " + "," * 1000 + "1" * 2000) * 3
     assert extract_identifiers(huge)["last_four"] == ["1234"]
+
+
+@pytest.mark.parametrize("text", [
+    "*" * 500 + " " * 1500, "•" * 1000, "•" * 500 + " " * 1500, "card " * 400, "1" * 2000, "last 4" + " " * 1990,
+    "ending in" + " " * 1990, "visa" + " (" * 990, "*" * 990 + ":" + " " * 990, "$" + "1" * 1990, ",111" * 499 + "x",
+])
+def test_extraction_is_linear_time_on_pathological_input(text):
+    t0 = time.perf_counter()
+    extract_identifiers(text)
+    assert time.perf_counter() - t0 < 0.05
+
+
+@pytest.mark.parametrize("text", ["****1234", "•••• 1234", "card: 1234", "ending  in  #  1234", "visa (1234)"])
+def test_last_four_still_found_after_the_redos_fix(text):
+    assert extract_identifiers(text)["last_four"] == ["1234"]

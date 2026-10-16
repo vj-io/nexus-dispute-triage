@@ -18,4 +18,6 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s CMD python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/', timeout=4).status == 200 else 1)"
 # Inside the container the server must listen on all interfaces; publish it to
 # loopback only on the host: docker run -p 127.0.0.1:8000:8000 ...
+# MODE=live in Docker requires ACCESS_TOKEN: without one the app answers the API with 503
+# auth_not_configured to every non-loopback peer, and published-port traffic arrives from the bridge.
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]

@@ -7,6 +7,7 @@ create_app() so tests can make one per environment; `app` is the instance uvicor
 """
 import asyncio
 import hmac
+import ipaddress
 import logging
 import math
 import os
@@ -82,6 +83,20 @@ class RateLimiter:
         return None
 
 
+def _live() -> bool:
+    return (os.environ.get("MODE") or "").strip().upper() == "LIVE"
+
+
+def _loopback(scope) -> bool:
+    """The socket peer is 127.0.0.0/8 or ::1. X-Forwarded-For is deliberately ignored: any client can forge it."""
+    client = scope.get("client")
+    try:
+        ip = ipaddress.ip_address(client[0]) if client else None
+    except ValueError:
+        return False
+    return bool(ip and (getattr(ip, "ipv4_mapped", None) or ip).is_loopback)
+
+
 def _client_ip(scope, headers: Headers) -> str:
     if os.environ.get("VERCEL"):  # behind Vercel's proxy the first entry is the client; elsewhere it is spoofable
         first = headers.get("x-forwarded-for", "").split(",")[0].strip()
@@ -152,9 +167,11 @@ class Guard:
             await send(message)
 
         try:
-            if is_api:
-                await _ready(app)  # lazy one-time init, also loads .env, so env checks below see it
+            if is_api and not app.state.nx.ready:
+                inference.load_env_file()  # so the env checks below see .env; store init waits until they pass
             blocked = self._blocked(app, scope, headers, path, method, is_api)
+            if blocked is None and is_api:
+                await _ready(app)  # lazy one-time init, only for requests that passed rate limit and auth
             if blocked is None and is_api and method in ("POST", "PUT", "PATCH", "DELETE"):
                 body = await _read_body(receive)
                 if body is None:
@@ -177,7 +194,8 @@ class Guard:
         if not is_api:
             return None
         token = os.environ.get("ACCESS_TOKEN", "")
-        if not token and os.environ.get("VERCEL"):  # hosted without a token: fail closed
+        # hosted without a token: fail closed; live (paid provider calls) without a token: loopback clients only
+        if not token and (os.environ.get("VERCEL") or (_live() and not _loopback(scope))):
             return err(503, "auth_not_configured", "The server has no access token configured.")
         if token and not _authorized(headers, token):
             return err(401, "unauthorized", "Access token missing or incorrect.", {"WWW-Authenticate": "Bearer"})

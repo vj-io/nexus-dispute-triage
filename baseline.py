@@ -25,7 +25,7 @@ _AMOUNT = re.compile(
 _BRANDS = r"visa|master\s?card|amex|american\s+express|discover|rupay|diners(?:\s+club)?"
 _LAST4 = re.compile(
     rf"(?:\bending(?:\s+(?:in|with))?|\blast\s+(?:four|4)(?:\s+digits)?(?:\s+(?:are|is))?|\bcard"
-    rf"|\b(?:{_BRANDS})|[•*]{{2,}})\s*[:#(]?\s*(\d{{4}})(?![\d/-])", re.I)
+    rf"|\b(?:{_BRANDS})|(?<![•*])[•*]{{2,}})\s*(?:[:#(]\s*)?(\d{{4}})(?![\d/-])", re.I)
 
 _MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
 _MON = (r"(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|(?-i:May)|june?|july?|aug(?:ust)?"
