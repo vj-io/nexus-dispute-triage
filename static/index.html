@@ -6,7 +6,8 @@
 <meta name="color-scheme" content="light">
 <meta name="description" content="NEXUS triages duplicate-charge complaints: deterministic policy decides, an AMD-hosted model interprets, a person reviews the rest. All data is synthetic.">
 <title>NEXUS - duplicate-charge triage</title>
-<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+<link rel="apple-touch-icon" href="/static/favicon.svg">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&amp;family=JetBrains+Mono:wght@400;700&amp;family=Patrick+Hand&amp;display=swap">
 <link rel="stylesheet" href="/static/styles.css">
 <script src="/static/app.js" defer></script>
@@ -30,7 +31,7 @@
 
 <header class="site-header wrap">
   <div class="brand">
-    <h1 class="wordmark" id="wordmark"><span class="wm-text">NEXUS</span></h1>
+    <h1 class="wordmark" id="wordmark"><img class="logo" src="/static/favicon.svg" alt="" width="54" height="54"><span class="wm-text">NEXUS</span></h1>
     <p class="tagline">Duplicate-charge complaint triage</p>
   </div>
   <div class="badges" role="group" aria-label="Run provenance">
@@ -78,7 +79,7 @@
 
     <!-- ============================== CASE ============================== -->
     <section id="panel-case" role="tabpanel" aria-labelledby="tab-case">
-      <section class="card pop-in" aria-labelledby="h-new">
+      <section class="card pop-in t-lime" aria-labelledby="h-new">
         <h2 id="h-new" class="card-title">New complaint</h2>
         <form id="case-form" class="form-grid" novalidate>
           <div class="field full">
@@ -110,7 +111,7 @@
         </form>
       </section>
 
-      <section id="pipeline-card" class="card" hidden aria-labelledby="h-pipe">
+      <section id="pipeline-card" class="card t-mint" hidden aria-labelledby="h-pipe">
         <h2 id="h-pipe" class="card-title">Pipeline</h2>
         <p id="case-banner" class="case-banner"></p>
         <ol id="pipe" class="pipe"></ol>
@@ -128,7 +129,7 @@
         <span id="rv-status" class="hint"></span>
       </div>
       <div class="split">
-        <section class="card" aria-labelledby="h-rvl">
+        <section class="card t-pink" aria-labelledby="h-rvl">
           <h3 id="h-rvl" class="card-title">Awaiting an operator</h3>
           <ul id="rv-list" class="rv-list"></ul>
         </section>

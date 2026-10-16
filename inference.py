@@ -237,6 +237,8 @@ def load_env_file(path=None) -> None:
             continue
         if val and val[0] in "\"'" and val.find(val[0], 1) > 0:
             val = val[1:val.find(val[0], 1)]
+        elif val.startswith("#"):  # "NAME=   # comment" means empty
+            val = ""
         else:
             val = re.split(r"\s+#", val, maxsplit=1)[0].strip()
         os.environ.setdefault(name, val)

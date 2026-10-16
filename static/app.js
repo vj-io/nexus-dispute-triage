@@ -148,7 +148,7 @@ function fmtMoney(v, cur) {
   return f.format(v / Math.pow(10, exp));
 }
 const missing = () => el('span', { class: 'miss' }, 'missing');
-const unavailable = () => el('span', { class: 'na' }, 'unavailable');
+const unavailable = () => el('span', { class: 'na chip' }, 'unavailable');
 const moneyNode = (v, cur) => (v == null ? unavailable() : document.createTextNode(fmtMoney(v, cur)));
 // evidence rows: a null amount is a missing record field, not an unavailable computation
 const recMoney = (v, cur) => (v == null ? missing() : document.createTextNode(fmtMoney(v, cur)));
@@ -262,7 +262,8 @@ function setBadges(c) {
     v.textContent = text; b.dataset.kind = kind;
     if (!reduced()) { b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop'); }
   };
-  upd('#badge-run', t.run, 'idle');
+  const mode = String((c ? c.run_mode : state.health && state.health.inference && state.health.inference.mode) || '').toUpperCase();
+  upd('#badge-run', t.run, { LIVE: 'run-live', RECORDED: 'recorded', MOCK: 'mock' }[mode] || 'idle');
   upd('#badge-inf', t.inf, t.kind);
 }
 
@@ -527,6 +528,19 @@ function onCaseFinal(c) {
 }
 
 // =================================================================== result rendering
+// marker tones (see ".t-*" in styles.css): colour carries meaning, text stays ink
+const DISP_TONE = { REFUND_RECOMMENDED: 'mint', NO_REFUND_RECOMMENDED: 'sky', CLARIFICATION_REQUIRED: 'tangerine', HUMAN_REVIEW_REQUIRED: 'pink' };
+const dispTone = d => DISP_TONE[d] || 'gray';
+const INFERRED = /^(OUT_OF_DOMAIN|AMBIGUOUS_MAPPING|MODEL_)/; // reasons that come from model output, not mandatory policy flags
+const flagTone = f => (INFERRED.test(String(f == null ? '' : f)) ? 'lavender' : 'pink');
+const INF_TONE = { USED: 'mint', SKIPPED_POLICY: 'sky', FAILED: 'pink' };
+const CARD_TONE = {
+  Amounts: 'mint', Evidence: 'sky', 'Customer reply': 'tangerine', 'Call trace': 'lavender',
+  'Operator disposition': 'pink', 'Review completed': 'mint', 'By final disposition': 'sky', 'By validated flag or reason': 'pink',
+  'Hypotheses to investigate': 'tangerine', 'Active policy': 'lavender', 'Automatic-recommendation thresholds': 'tangerine', Rules: 'lavender',
+};
+const MARKERS = ['pink', 'sky', 'tangerine', 'lavender', 'mint', 'lemon', 'lime'];
+const STICKY = ['lemon', 'pink', 'sky', 'mint', 'lavender', 'tangerine'];
 const DISP = {
   REFUND_RECOMMENDED: 'Refund recommended', NO_REFUND_RECOMMENDED: 'No refund recommended',
   CLARIFICATION_REQUIRED: 'Clarification required', HUMAN_REVIEW_REQUIRED: 'Human review required',
@@ -544,7 +558,7 @@ const safeClass = s => String(s == null ? '' : s).toLowerCase().replace(/[^a-z_]
 const td = (cls, ...kids) => el('td', cls ? { class: cls } : null, ...kids);
 const small = t => (t == null ? null : el('small', null, String(t)));
 const pill = (status, extra) => el('span', { class: `pill ${safeClass(status)}${extra ? ' ' + extra : ''}` }, cell(status));
-const card = (title, ...kids) => el('section', { class: 'card pop-in' }, title ? el('h2', { class: 'card-title' }, title) : null, ...kids);
+const card = (title, ...kids) => el('section', { class: 'card pop-in t-' + (CARD_TONE[title] || 'lime') }, title ? el('h2', { class: 'card-title' }, title) : null, ...kids);
 
 function dataTable(label, heads, rows, emptyText) {
   return el('div', { class: 'table-scroll', role: 'region', 'aria-label': label, tabindex: '0' },
@@ -599,29 +613,33 @@ function dispositionCard(c, opts = {}) {
   let why = null;
   if (prim) why = el('p', { class: 'reason' }, 'Primary reason: ', el('code', null, String(prim)));
   else if (c.explanation_code) why = el('p', { class: 'reason' }, 'Explanation: ', el('code', null, String(c.explanation_code)), EXPLAIN[c.explanation_code] ? ` (${EXPLAIN[c.explanation_code]})` : '');
-  return card('Disposition',
+  const tone = c.state === 'FAILED' ? 'pink' : dispTone(c.disposition);
+  const dc = card('Disposition',
     c.state === 'FAILED' ? el('p', { class: 'fail-note' }, 'The system could not complete a safe outcome for this case.') : null,
-    el('div', { class: 'stamp-wrap' }, el('p', { class: 'stamp' + (opts.small ? ' small' : '') }, DISP[c.disposition] || 'No outcome')),
+    el('div', { class: 'stamp-wrap t-' + tone }, el('p', { class: 'stamp' + (opts.small ? ' small' : '') }, DISP[c.disposition] || 'No outcome')),
     why,
     el('div', { class: 'row-block' }, el('span', { class: 'label-k' }, 'Deterministic flags'),
-      flags.length ? el('ul', { class: 'tags' }, flags.map(f => el('li', { class: 'tag' + (f === prim ? ' primary' : '') }, (f === prim ? '★ ' : '') + f)))
+      flags.length ? el('ul', { class: 'tags' }, flags.map(f => el('li', { class: 'tag t-' + flagTone(f) + (f === prim ? ' primary' : '') }, (f === prim ? '★ ' : '') + f)))
         : el('p', { class: 'hint' }, 'No mandatory flags. Policy found nothing that forces human review.')),
     el('div', { class: 'row-block' }, el('span', { class: 'label-k' }, 'Policy rules cited (hover or focus a rule)'),
       rules.length ? el('div', { class: 'tags' }, rules.map(ruleChip)) : el('p', { class: 'hint' }, 'No rules cited.')),
     reviewLine(c, opts.noButton));
+  dc.className = 'card pop-in t-' + tone;
+  return dc;
 }
 
 function amountsCard(c) {
   const a = c.amounts || {}, cur = a.currency;
   const row = (k, v, cls) => el('li', { class: cls || null }, el('span', { class: 'k' }, k), el('span', { class: 'leader', 'aria-hidden': 'true' }), el('span', { class: 'v' }, moneyNode(v, cur)));
-  const net = el('span', { class: 'v' });
+  const owed = Number.isInteger(a.net_owed) && a.net_owed > 0;
+  const net = el('span', { class: 'v' + (owed ? ' pos' : '') });
   if (a.net_owed == null) net.append(unavailable()); else net.textContent = fmtMoney(a.net_owed, cur);
   if (a.net_owed != null && Number.isInteger(a.net_owed)) net.dataset.minor = String(a.net_owed);
   return card('Amounts',
     el('ul', { class: 'receipt' },
       row('Order total', a.order_total), row('Captured total', a.captured_total), row('Over-capture', a.over_capture),
       row('Already corrected', a.corrected_total),
-      el('li', { class: 'key' }, el('span', { class: 'k' }, el('span', { class: 'hl' }, 'Net owed')), el('span', { class: 'leader', 'aria-hidden': 'true' }), net),
+      el('li', { class: 'key' }, el('span', { class: 'k' }, el('span', { class: 'hl ' + (owed ? 't-mint' : 't-gray') }, 'Net owed')), el('span', { class: 'leader', 'aria-hidden': 'true' }), net),
       row('Recommended refund', a.recommended_amount), row('Policy threshold', a.threshold)),
     el('p', { class: 'hint cur-note' }, `Currency: ${a.currency || 'unavailable'}. Amounts come from deterministic policy code, never from model text. Unavailable means outside the supported scope, not zero.`));
 }
@@ -631,11 +649,11 @@ function evidenceCard(c) {
   const orders = Array.isArray(ev.orders) ? ev.orders : [], pays = Array.isArray(ev.payments) ? ev.payments : [], refs = Array.isArray(ev.refunds) ? ev.refunds : [];
   const sub = (text) => el('h3', { class: 'sub-title' }, text);
   const orderRows = orders.map(o => [
-    td(null, el('span', { class: 'role' + (o.role === 'disputed' ? ' disputed' : '') }, cell(o.role))),
+    td(null, el('span', { class: 'role' + (o.role === 'disputed' ? ' disputed' : o.role === 'related' ? ' related' : '') }, cell(o.role))),
     td('mono', cell(o.id)), td(null, cell(o.description)), td(null, dateCell(o.created_at)),
     td('num', recMoney(o.total_minor, o.currency), small(o.currency)),
     td(null, cell(o.kind), small(o.shipment_count == null ? null : `${o.shipment_count} shipment${o.shipment_count === 1 ? '' : 's'}`)),
-    td(null, cell(o.adjustment_status))]);
+    td(null, o.adjustment_status && o.adjustment_status !== 'none' ? pill(o.adjustment_status, 'adj') : cell(o.adjustment_status))]);
   const payRows = pays.map(p => [
     td('mono', cell(p.id), p.parent_authorization_id ? small('child of ' + p.parent_authorization_id) : null),
     td('mono', cell(p.order_id)), td(null, pill(p.status)),
@@ -650,7 +668,7 @@ function evidenceCard(c) {
   return card('Evidence',
     el('p', { class: 'cust-line' }, 'Customer: ', el('strong', null, cell(cu.display_name)), ' ',
       el('span', { class: 'mono' }, `(${cu.id || c.customer_id || 'unknown'})`), ' · account ',
-      el('span', { class: 'pill' + (cu.account_status === 'restricted' ? ' open' : '') }, cell(cu.account_status))),
+      pill(cu.account_status)),
     sub('Orders'), dataTable('Orders', ['Role', 'Order', 'Item', 'Date', 'Total', 'Kind', 'Adjustment'], orderRows, 'No orders in this snapshot'),
     sub('Payments'), dataTable('Payments', ['Payment', 'Order', 'Status', 'Date', 'Card', 'Amount', 'Capture', 'Chargeback'], payRows, 'No payments in this snapshot'),
     sub('Refunds'), dataTable('Refunds', ['Refund', 'Payment', 'Status', 'Date', 'Amount', 'Reason'], refRows, 'No refunds recorded'),
@@ -683,7 +701,7 @@ function replyCard(c) {
   });
   return card('Customer reply',
     mf.length ? el('div', { class: 'row-block' }, el('span', { class: 'label-k' }, 'Missing from the complaint'),
-      el('ul', { class: 'tags' }, mf.map(f => el('li', { class: 'tag primary', title: String(f) }, FIELD_WORDS[f] || String(f))))) : null,
+      el('ul', { class: 'tags' }, mf.map(f => el('li', { class: 'tag t-tangerine', title: String(f) }, FIELD_WORDS[f] || String(f))))) : null,
     el('p', { class: 'hint draft-note' }, 'Draft only. Nothing is sent. Amounts, IDs and timing in the template were rendered by code, not by the model.'),
     el('label', { class: 'reply-label', for: 'reply' }, 'Reply draft (editable)'), ta,
     el('div', { class: 'reply-actions' }, copyBtn), edited);
@@ -717,7 +735,7 @@ function devCard(c) {
       kv('Usage state', cell(k.usage_state)),
       k.source_metadata ? kv('Original live call (replay source)', el('pre', { class: 'pre' }, JSON.stringify(k.source_metadata, null, 2))) : null)));
   const evRows = events.map(e => [td('num', cell(e.seq)), td('mono', cell(e.type)), td('mono', cell(e.ts)), td(null, cell(e.reason))]);
-  return el('div', { class: 'card pop-in' }, el('details', null,
+  return el('div', { class: 'card pop-in t-gray' }, el('details', null,
     el('summary', null, 'Developer metrics'),
     el('dl', { class: 'kv' },
       kv('Validation', v.valid == null ? unavailable() : (v.valid ? 'valid' : 'INVALID') + (v.downgraded ? ' · downgraded to clarification' : '')),
@@ -741,14 +759,16 @@ function burst(host) {
   const r = prng(Date.now() % 100000);
   const w = stamp.offsetWidth, h = stamp.offsetHeight, W = w + 180, H = h + 180, cx = W / 2, cy = H / 2, rx = w / 2 + 10, ry = h / 2 + 10;
   const g = svg('g', { class: 'fly' });
+  let ci = 0; // multi-colour: each stroke takes the next marker ink
+  const bp = d => svg('path', { class: 'b' + (ci++ % 6), pathLength: 1, d });
   g.style.transformOrigin = `${cx}px ${cy}px`;
   for (let k = 0; k < 14; k++) {
     const a = (k / 14) * Math.PI * 2 + jit(r, 0.12), len = 16 + r() * 18;
     const x0 = cx + Math.cos(a) * rx, y0 = cy + Math.sin(a) * ry;
-    g.append(svg('path', { pathLength: 1, d: `M${P(x0, y0)} L${P(x0 + Math.cos(a) * len, y0 + Math.sin(a) * len)}` }));
+    g.append(bp(`M${P(x0, y0)} L${P(x0 + Math.cos(a) * len, y0 + Math.sin(a) * len)}`));
   }
-  [[-1, -1, 15], [1, -1, 13], [-1, 1, 12], [1, 1, 16]].forEach(([sx, sy, sz]) => g.append(svg('path', { pathLength: 1, d: sparkPath(r, cx + sx * (rx + 44), cy + sy * (ry + 34), sz) })));
-  g.append(svg('path', { pathLength: 1, d: squigglePath(r, cx - rx - 70, cy, 44) }), svg('path', { pathLength: 1, d: squigglePath(r, cx + rx + 26, cy + 6, 44) }));
+  [[-1, -1, 15], [1, -1, 13], [-1, 1, 12], [1, 1, 16]].forEach(([sx, sy, sz]) => g.append(bp(sparkPath(r, cx + sx * (rx + 44), cy + sy * (ry + 34), sz))));
+  g.append(bp(squigglePath(r, cx - rx - 70, cy, 44)), bp(squigglePath(r, cx + rx + 26, cy + 6, 44)));
   const s = svg('svg', { class: 'burst', width: W, height: H, viewBox: `0 0 ${W} ${H}`, 'aria-hidden': 'true', focusable: 'false' }, g);
   s.style.left = (stamp.offsetLeft + w / 2 - cx) + 'px';
   s.style.top = (stamp.offsetTop + h / 2 - cy) + 'px';
@@ -798,12 +818,12 @@ function renderReviewList() {
   for (const r of state.reviews) {
     const flags = (Array.isArray(r.flags) ? r.flags : []).map(flagCode).filter(f => f && f !== r.reason_code);
     const btn = el('button', { type: 'button', class: 'rv-open', 'aria-controls': 'rv-detail', 'aria-expanded': String(state.reviewOpenId === r.case_id) },
-      el('span', { class: 'rv-meta' }, el('span', { class: 'tag primary' }, cell(r.reason_code)), el('strong', null, custName(r.customer_id)), el('span', { class: 'mono' }, cell(r.disputed_order_id))),
-      flags.length ? el('span', { class: 'tags' }, flags.map(f => el('span', { class: 'tag soft' }, f))) : null,
+      el('span', { class: 'rv-meta' }, el('span', { class: 'tag primary t-' + flagTone(r.reason_code) }, cell(r.reason_code)), el('strong', null, custName(r.customer_id)), el('span', { class: 'mono' }, cell(r.disputed_order_id))),
+      flags.length ? el('span', { class: 'tags' }, flags.map(f => el('span', { class: 'tag soft t-' + flagTone(f) }, f))) : null,
       el('span', { class: 'rv-excerpt' }, r.complaint_excerpt ? String(r.complaint_excerpt) : ''),
       el('span', { class: 'rv-when' }, `queued ${whenText(r.queued_at)} · ${r.case_id}`));
     btn.addEventListener('click', () => openReview(r.case_id));
-    const li = el('li', { class: 'rv-item' }, btn,
+    const li = el('li', { class: 'rv-item t-' + flagTone(r.reason_code) }, btn,
       el('div', { class: 'done-check', 'aria-hidden': 'true' }, svg('svg', { viewBox: '0 0 64 64', width: 56, height: 56, focusable: 'false' }, svg('path', { pathLength: 1, d: checkPath(13, 16, 38) }))));
     li.dataset.case = String(r.case_id);
     ul.append(li);
@@ -829,7 +849,7 @@ function renderReviewDetail(c) {
   const box = $('#rv-detail');
   const pending = c.review && c.review.status === 'PENDING' && c.state === 'NEEDS_HUMAN';
   box.replaceChildren(
-    el('section', { class: 'card pop-in' },
+    el('section', { class: 'card pop-in t-sky' },
       el('h3', { class: 'card-title' }, `Case ${c.id}`),
       el('p', { class: 'cust-line' }, el('strong', null, custName(c.customer_id)), ' · order ', el('span', { class: 'mono' }, cell(c.disputed_order_id))),
       el('span', { class: 'label-k' }, 'Customer complaint'),
@@ -864,7 +884,7 @@ function opForm(c) {
     el('p', { class: 'hint' }, 'Recording a decision never executes a payment. The original automated outcome is kept.'),
     el('div', { class: 'actions' }, btn, msg));
   form.addEventListener('submit', ev => submitDecision(ev, c, { idIn, sel, note, msg, btn }));
-  return el('section', { class: 'card pop-in' }, el('h3', { class: 'card-title' }, 'Operator disposition'), form);
+  return el('section', { class: 'card pop-in t-pink' }, el('h3', { class: 'card-title' }, 'Operator disposition'), form);
 }
 async function submitDecision(ev, c, f) {
   ev.preventDefault();
@@ -919,10 +939,10 @@ function barSvg(idx) {
   const d = `M0 ${n1(1 + jit(r, 1))} Q50 ${n1(jit(r, 1.5))} 100 ${n1(1 + jit(r, 1))} L${n1(99 + jit(r, 1))} 13 L100 ${n1(25 + jit(r, 1))} Q50 ${n1(26 + jit(r, 1.5))} 0 ${n1(25 + jit(r, 1))} Z`;
   return svg('svg', { viewBox: '0 0 100 26', preserveAspectRatio: 'none', 'aria-hidden': 'true', focusable: 'false' }, svg('path', { class: 'fill', d }), svg('path', { class: 'out', d }));
 }
-function chartCard(title, data, denom, overlapNote) {
+function chartCard(title, data, denom, overlapNote, toneOf) {
   const bars = [];
   const list = data.length ? el('ul', { class: 'bars' }, data.map(([name, n], i) => {
-    const bar = el('div', { class: 'bar' });
+    const bar = el('div', { class: 'bar t-' + toneOf(name, i) });
     if (n > 0) {
       bar.style.width = (denom > 0 ? Math.min(100, Math.max(4, (n / denom) * 100)) : 4) + '%';
       bar.style.setProperty('--d', (i * 0.09).toFixed(2) + 's');
@@ -955,20 +975,20 @@ function renderInsights(d) {
   const denom = Number.isFinite(Number(d.denominator)) ? Number(d.denominator) : 0;
   const hyps = (Array.isArray(d.hypotheses) ? d.hypotheses : []).map(h => typeof h === 'string' ? h : (h && (h.text || h.hypothesis || h.title)) || '').filter(Boolean);
   const infs = pairs(d.by_inference_status);
-  const disp = chartCard('By final disposition', pairs(d.by_disposition), denom, false);
-  const flag = chartCard('By validated flag or reason', pairs(d.by_flag), denom, d.flags_overlap === true);
+  const disp = chartCard('By final disposition', pairs(d.by_disposition), denom, false, name => dispTone(name));
+  const flag = chartCard('By validated flag or reason', pairs(d.by_flag), denom, d.flags_overlap === true, (name, i) => MARKERS[i % MARKERS.length]);
   const root = $('#insights');
   root.replaceChildren(
     el('div', { class: 'denom' }, el('span', { class: 'big' }, String(denom)),
       el('span', { class: 'what' }, `unique cases in this run (the denominator)${d.run_mode ? ' · run mode ' + d.run_mode : ''}. Retries and replays are not extra cases. Runs and modes are never pooled.`)),
     infs.length ? el('div', { class: 'block' }, el('span', { class: 'label-k' }, 'Inference status of these cases'),
-      el('ul', { class: 'chips' }, infs.map(([k, n]) => el('li', { class: 'tag soft' }, `${k}: ${n}`))),
+      el('ul', { class: 'chips' }, infs.map(([k, n]) => el('li', { class: 'tag soft t-' + (INF_TONE[k] || 'gray') }, `${k}: ${n}`))),
       el('p', { class: 'hint' }, 'Policy-skipped cases stay in their run with zero model calls.')) : null,
     el('div', { class: 'charts' }, disp, flag),
     card('Hypotheses to investigate',
       el('p', { class: 'hint' }, 'Questions a support lead could check. They are not findings and not causes.'),
       hyps.length ? el('ul', { class: 'notes' }, hyps.map((h, i) => {
-        const n = el('li', { class: 'sticky' }, h);
+        const n = el('li', { class: 'sticky t-' + STICKY[i % STICKY.length] }, h);
         n.style.setProperty('--r', [-2, 1.5, -1, 2, -1.8, 1][i % 6] + 'deg');
         return n;
       })) : el('p', { class: 'hint' }, 'No hypotheses for this run.')));
@@ -990,7 +1010,7 @@ function renderPolicy(p) {
       card('Active policy', el('dl', { class: 'kv' },
         kv('Version', cell(p.version)),
         kv('Hash (shortened)', hash ? el('code', { title: hash }, hash.slice(0, 12) + '…') : missing()),
-        kv('Supported currencies', Array.isArray(p.supported_currencies) && p.supported_currencies.length ? el('ul', { class: 'tags' }, p.supported_currencies.map(c => el('li', { class: 'tag' }, String(c)))) : missing()),
+        kv('Supported currencies', Array.isArray(p.supported_currencies) && p.supported_currencies.length ? el('ul', { class: 'tags' }, p.supported_currencies.map(c => el('li', { class: 'tag t-mint' }, String(c)))) : missing()),
         kv('Authorization expiry', p.auth_expiry_days == null ? missing() : `${p.auth_expiry_days} days`),
         kv('Refund settlement expectation', p.refund_settlement_days == null ? missing() : `${p.refund_settlement_days} business days (an expectation, never a guarantee)`))),
       card('Automatic-recommendation thresholds',
